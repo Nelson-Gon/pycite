@@ -18,8 +18,8 @@ pycite: Python Citations Generator
    :alt: Project Status
  
 
-.. image:: https://codecov.io/gh/Nelson-Gon/pycite/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/Nelson-Gon/pycite?branch=master
+.. image:: https://codecov.io/gh/Nelson-Gon/pycite/branch/main/graph/badge.svg
+   :target: https://codecov.io/gh/Nelson-Gon/pycite?branch=main
    :alt: Codecov
 
 
@@ -28,8 +28,8 @@ pycite: Python Citations Generator
    :alt: Test-Package
 
 
-.. image:: https://travis-ci.com/Nelson-Gon/pycite.svg?branch=master
-   :target: https://travis-ci.com/Nelson-Gon/pycite.svg?branch=master
+.. image:: https://travis-ci.com/Nelson-Gon/pycite.svg?branch=main
+   :target: https://travis-ci.com/Nelson-Gon/pycite.svg?branch=main
    :alt: Travis Build
 
 
@@ -64,7 +64,7 @@ pycite: Python Citations Generator
 
 
 .. image:: https://img.shields.io/github/last-commit/Nelson-Gon/pycite.svg
-   :target: https://github.com/Nelson-Gon/pycite/commits/master
+   :target: https://github.com/Nelson-Gon/pycite/commits/main
    :alt: GitHub last commit
 
 
