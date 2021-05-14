@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from pycite.version import __version__
 link_to_use = "https://github.com/Nelson-Gon/pycite/archive/refs/tags/v"+__version__+".zip"
-setup(name='pyfdc',
+setup(name='pycite',
       version=__version__,
       description="Python Citations Generator",
       url="http://www.github.com/Nelson-Gon/pycite",
