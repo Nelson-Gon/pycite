@@ -3,6 +3,11 @@ pycite: Python Citations Generator
 ==================================
 
 
+.. image:: https://zenodo.org/badge/367264942.svg
+   :target: https://zenodo.org/badge/latestdoi/367264942
+   :alt: DOI
+
+
 .. image:: https://badge.fury.io/py/pycite.svg
    :target: https://pypi.python.org/pypi/pycite/
    :alt: PyPI version fury.io

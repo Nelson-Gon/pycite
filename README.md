@@ -1,7 +1,7 @@
 # pycite: Python Citations Generator 
 
 
-
+[![DOI](https://zenodo.org/badge/367264942.svg)](https://zenodo.org/badge/latestdoi/367264942)
 [![PyPI version fury.io](https://badge.fury.io/py/pycite.svg)](https://pypi.python.org/pypi/pycite/)
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) 
 [![Codecov](https://codecov.io/gh/Nelson-Gon/pycite/branch/master/graph/badge.svg)](https://codecov.io/gh/Nelson-Gon/pycite?branch=master)
