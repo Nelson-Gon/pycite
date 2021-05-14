@@ -116,3 +116,34 @@ Otherwise:
    git clone git@github.com:Nelson-Gon/pycite.git
    cd pycite
    python3 setup.py install
+
+Usage
+=====
+
+First, one needs to create an object of class ``PyCite``
+
+.. code-block:: python
+
+   from pycite.pycite import PyCite
+
+.. code-block:: python
+
+   my_citations = PyCite("path_to_links_file")
+
+To generate citations, one simply calls the ``cite`` method.
+
+.. code-block:: python
+
+   mycitations.cite()
+
+----
+
+**Thank you very much and Keep Building**. 
+
+..
+
+   To report any issues, suggestions or improvement, please do so 
+   at `issues <https://github.com/Nelson-Gon/pycite/issues>`_. 
+
+   “Before software can be reusable it first has to be usable.” – Ralph Johnson
+

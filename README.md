@@ -69,3 +69,31 @@ python3 setup.py install
 
 ```
 
+# Usage 
+
+First, one needs to create an object of class `PyCite`
+
+```python
+from pycite.pycite import PyCite
+```
+
+```python
+my_citations = PyCite("path_to_links_file")
+```
+
+To generate citations, one simply calls the `cite` method.
+
+```python
+mycitations.cite()
+```
+
+---
+
+**Thank you very much and Keep Building**. 
+
+> To report any issues, suggestions or improvement, please do so 
+at [issues](https://github.com/Nelson-Gon/pycite/issues). 
+
+> “Before software can be reusable it first has to be usable.” – Ralph Johnson
+
+
