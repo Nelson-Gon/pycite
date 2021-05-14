@@ -24,10 +24,11 @@ class PyCite(object):
                 bs4_link = bs4.BeautifulSoup(paper_link)
                 # Find title
                 title = bs4_link.find_all("h1", {"class": "content-title"})[0].text
+                journal_volumes = bs4_link.find_all("a", {"class": "navlink"})
                 # Find Journal Name
-                journal = bs4_link.find_all("a", {"class": "navlink"})[1].text
+                journal = journal_volumes[1].text
                 # Find journal volume and year
-                volume_year = bs4_link.find_all("a", {"class": "navlink"})[2].text
+                volume_year = journal_volumes[2].text
                 vol_yr_split = re.split(";", volume_year)
                 volume = vol_yr_split[0]
                 # year

@@ -139,7 +139,7 @@ To generate citations, one simply calls the ``cite`` method.
 
 .. code-block:: python
 
-   mycitations.cite()
+   my_citations.cite()
 
 ----
 

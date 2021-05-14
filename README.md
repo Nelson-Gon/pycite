@@ -84,7 +84,7 @@ my_citations = PyCite("path_to_links_file")
 To generate citations, one simply calls the `cite` method.
 
 ```python
-mycitations.cite()
+my_citations.cite()
 ```
 
 ---
