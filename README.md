@@ -6,7 +6,7 @@
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) 
 [![Codecov](https://codecov.io/gh/Nelson-Gon/pycite/branch/main/graph/badge.svg)](https://codecov.io/gh/Nelson-Gon/pycite?branch=main)
 ![Test-Package](https://github.com/Nelson-Gon/pycite/workflows/Test-Package/badge.svg)
-![Travis Build](https://travis-ci.com/Nelson-Gon/pycite.svg?branch=main)
+[![Build Status](https://api.travis-ci.org/Nelson-Gon/pycite.png?branch=main)](https://travis-ci.org/Nelson-Gon/pycite)
 [![PyPI license](https://img.shields.io/pypi/l/pycite.svg)](https://pypi.python.org/pypi/pycite/)
 [![Documentation Status](https://readthedocs.org/projects/pycite/badge/?version=latest)](https://pycite.readthedocs.io/en/latest/?badge=latest)
 [![Total Downloads](https://pepy.tech/badge/pycite)](https://pepy.tech/project/pycite)

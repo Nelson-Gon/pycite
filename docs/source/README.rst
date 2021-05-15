@@ -28,9 +28,9 @@ pycite: Python Citations Generator
    :alt: Test-Package
 
 
-.. image:: https://travis-ci.com/Nelson-Gon/pycite.svg?branch=main
-   :target: https://travis-ci.com/Nelson-Gon/pycite.svg?branch=main
-   :alt: Travis Build
+.. image:: https://api.travis-ci.org/Nelson-Gon/pycite.png?branch=main
+   :target: https://travis-ci.org/Nelson-Gon/pycite
+   :alt: Build Status
 
 
 .. image:: https://img.shields.io/pypi/l/pycite.svg
