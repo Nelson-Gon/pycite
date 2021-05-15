@@ -4,7 +4,7 @@
 [![DOI](https://zenodo.org/badge/367264942.svg)](https://zenodo.org/badge/latestdoi/367264942)
 [![PyPI version fury.io](https://badge.fury.io/py/pycite.svg)](https://pypi.python.org/pypi/pycite/)
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) 
-[![Codecov](https://codecov.io/gh/Nelson-Gon/pycite/branch/main/graph/badge.svg)](https://codecov.io/gh/Nelson-Gon/pycite?branch=main)
+[![Codecov](https://codecov.io/gh/Nelson-Gon/pycite/branch/dev/graph/badge.svg)](https://codecov.io/gh/Nelson-Gon/pycite?branch=dev)
 ![Test-Package](https://github.com/Nelson-Gon/pycite/workflows/Test-Package/badge.svg)
 [![Build Status](https://www.travis-ci.com/Nelson-Gon/pycite.svg?branch=main)](https://www.travis-ci.com/Nelson-Gon/pycite)
 [![PyPI license](https://img.shields.io/pypi/l/pycite.svg)](https://pypi.python.org/pypi/pycite/)

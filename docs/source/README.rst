@@ -18,8 +18,8 @@ pycite: Python Citations Generator
    :alt: Project Status
  
 
-.. image:: https://codecov.io/gh/Nelson-Gon/pycite/branch/main/graph/badge.svg
-   :target: https://codecov.io/gh/Nelson-Gon/pycite?branch=main
+.. image:: https://codecov.io/gh/Nelson-Gon/pycite/branch/dev/graph/badge.svg
+   :target: https://codecov.io/gh/Nelson-Gon/pycite?branch=dev
    :alt: Codecov
 
 
