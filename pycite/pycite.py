@@ -3,7 +3,18 @@ from urllib.request import urlopen, Request
 import re
 
 
-# Open web url
+def split_authors(authors_list):
+    test_split = re.split(",", authors_list)
+    splits = [re.split(" ", x) for x in test_split]
+    final_authors = []
+    for authors in splits:
+        # Remove empty splits
+        authors_split = list(filter(None, authors))
+        # Abbreviate anything except the last name
+        split_at = 1 if len(authors_split) <=2 else 2
+        authors_split[split_at:] = [x[:1]  for x in authors_split[split_at:]]
+        final_authors.append(" ".join(authors_split))
+    return final_authors
 
 class PyCite(object):
     def __init__(self, links_file):
@@ -49,6 +60,9 @@ class PyCite(object):
                 authors_split_clean[-1] = re.sub("(\w.*)", "& \\1", authors_split_clean[-1])
                 authors_split_clean[0] = re.sub("(\w.*)", "\\1 ", authors_split_clean[0])
                 authors_final = ",".join(authors_split_clean)
+                # Clean authors further
+                # TODO: This adds unnecessary steps, need to reduce this
+                authors_final = ",".join(split_authors(authors_final))
 
                 # Harvard Style
                 # Authors (Year) Title, journal, Volume, pages
@@ -56,3 +70,18 @@ class PyCite(object):
                 # TODO: Make italics
                 final_citations.append(authors_final + " " + title + " (" + year + ") " + journal + ", " + volume)
         return final_citations
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -133,7 +133,7 @@ First, one needs to create an object of class ``PyCite``
 
 .. code-block:: python
 
-   my_citations = PyCite("path_to_links_file")
+   my_citations = PyCite("testfiles/testlinks.txt")
 
 To generate citations, one simply calls the ``cite`` method.
 

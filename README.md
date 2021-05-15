@@ -78,7 +78,7 @@ from pycite.pycite import PyCite
 ```
 
 ```python
-my_citations = PyCite("path_to_links_file")
+my_citations = PyCite("testfiles/testlinks.txt")
 ```
 
 To generate citations, one simply calls the `cite` method.
@@ -86,6 +86,8 @@ To generate citations, one simply calls the `cite` method.
 ```python
 my_citations.cite()
 ```
+
+
 
 ---
 
