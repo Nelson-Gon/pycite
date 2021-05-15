@@ -28,8 +28,8 @@ pycite: Python Citations Generator
    :alt: Test-Package
 
 
-.. image:: https://api.travis-ci.org/Nelson-Gon/pycite.png?branch=main
-   :target: https://travis-ci.org/Nelson-Gon/pycite
+.. image:: https://www.travis-ci.com/Nelson-Gon/pycite.svg?branch=main
+   :target: https://www.travis-ci.com/Nelson-Gon/pycite
    :alt: Build Status
 
 
