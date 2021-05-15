@@ -38,7 +38,7 @@ class PyCite(object):
                 # Assume that links are inputed as lines in the input file
                 paper_link = urlopen(Request(line, headers={'User-Agent': 'XYZ/3.0'}))
                 # Convert to a BS4 object
-                bs4_link = bs4.BeautifulSoup(paper_link)
+                bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
                 # Find title
                 title = bs4_link.find_all("h1", {"class": "content-title"})[0].text
                 journal_volumes = bs4_link.find_all("a", {"class": "navlink"})

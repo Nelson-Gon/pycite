@@ -6,6 +6,12 @@ pycite's changelog
 
 
 * 
+  Explicitly set an HTML parser 
+
+* 
+  Initial tests 
+
+* 
   Volumes no longer have the leading "v" attached. 
 
 * 
