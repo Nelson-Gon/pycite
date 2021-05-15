@@ -14,8 +14,8 @@ pycite.pycite module
    :show-inheritance:
 
 
-pyfdc.version module
---------------------
+pycite.version module
+---------------------
 
 .. automodule:: pycite.version
    :members:

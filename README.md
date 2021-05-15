@@ -24,7 +24,11 @@
 
 **Supported Reference Styles**
 
-- [ ] Harvard 
+- [x] Harvard 
+
+**Supported Paper Sources**
+
+- [x] NCBI
 
 **Supported file formats**
 

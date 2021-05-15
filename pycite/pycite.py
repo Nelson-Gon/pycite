@@ -4,6 +4,11 @@ import re
 
 
 def split_authors(authors_list):
+    """
+    :param authors_list A list of authors to further split
+    :return A cleaner version of the authors list
+    """
+
     test_split = re.split(",", authors_list)
     splits = [re.split(" ", x) for x in test_split]
     final_authors = []
@@ -11,10 +16,11 @@ def split_authors(authors_list):
         # Remove empty splits
         authors_split = list(filter(None, authors))
         # Abbreviate anything except the last name
-        split_at = 1 if len(authors_split) <=2 else 2
-        authors_split[split_at:] = [x[:1]  for x in authors_split[split_at:]]
+        split_at = 1 if len(authors_split) <= 2 else 2
+        authors_split[split_at:] = [x[:1] for x in authors_split[split_at:]]
         final_authors.append(" ".join(authors_split))
     return final_authors
+
 
 class PyCite(object):
     def __init__(self, links_file):
@@ -41,7 +47,8 @@ class PyCite(object):
                 # Find journal volume and year
                 volume_year = journal_volumes[2].text
                 vol_yr_split = re.split(";", volume_year)
-                volume = vol_yr_split[0]
+                # index to remove the "v" from volumes
+                volume = vol_yr_split[0][2:]
                 # year
                 year = re.sub("\D", "", vol_yr_split[1])
 
@@ -70,18 +77,5 @@ class PyCite(object):
                 # TODO: Make italics
                 final_citations.append(authors_final + " " + title + " (" + year + ") " + journal + ", " + volume)
         return final_citations
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

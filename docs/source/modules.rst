@@ -1,5 +1,5 @@
-pyfdc
-=====
+pycite
+======
 
 .. toctree::
    :maxdepth: 4
