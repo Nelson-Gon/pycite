@@ -35,7 +35,7 @@ class PyCite(object):
         with open(self.links_file, "r") as links_file:
             for line in links_file:
                 print(f"Now citing {line} found in {links_file.name}")
-                # Assume that links are inputed as lines in the input file
+                # Assume that links are inputted as lines in the input file
                 paper_link = urlopen(Request(line, headers={'User-Agent': 'XYZ/3.0'}))
                 # Convert to a BS4 object
                 bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
@@ -50,22 +50,22 @@ class PyCite(object):
                 # index to remove the "v" from volumes
                 volume = vol_yr_split[0][2:]
                 # year
-                year = re.sub("\D", "", vol_yr_split[1])
+                year = re.sub(r"\D", "", vol_yr_split[1])
 
                 # Find the authors tag
                 authors = bs4_link.find_all("div", {'class': 'contrib-group fm-author'})[0].text
                 # Sanitize authors list
-                authors_list = re.sub("[\d*]", "", authors)
+                authors_list = re.sub(r"[\d*]", "", authors)
                 authors_cleaner = re.sub(",(?=,)|,$", "", authors_list)
                 # Split authors list
                 authors_split = re.split(",", authors_cleaner)
                 # Reverse author names, last first first last
-                authors_split_clean = [re.sub("\sand\s", "",
-                                              re.sub("(.*)(\s)(.*)", "\\3\\2\\1", x)) for x in authors_split]
+                authors_split_clean = [re.sub(r"\sand\s", "",
+                                              re.sub(r"(.*)(\s)(.*)", "\\3\\2\\1", x)) for x in authors_split]
 
                 # Merge these for now
-                authors_split_clean[-1] = re.sub("(\w.*)", "& \\1", authors_split_clean[-1])
-                authors_split_clean[0] = re.sub("(\w.*)", "\\1 ", authors_split_clean[0])
+                authors_split_clean[-1] = re.sub(r"(\w.*)", "& \\1", authors_split_clean[-1])
+                authors_split_clean[0] = re.sub(r"(\w.*)", "\\1 ", authors_split_clean[0])
                 authors_final = ",".join(authors_split_clean)
                 # Clean authors further
                 # TODO: This adds unnecessary steps, need to reduce this
@@ -77,5 +77,3 @@ class PyCite(object):
                 # TODO: Make italics
                 final_citations.append(authors_final + " " + title + " (" + year + ") " + journal + ", " + volume)
         return final_citations
-
-
