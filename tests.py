@@ -22,9 +22,10 @@ class Testpycite(unittest.TestCase):
         # Create an object of class PyCite
         test_object = PyCite(txt_file)
         self.assertTrue(isinstance(test_object, PyCite))
-        # Check that we have two authors lists for two links
+        # Check that we have four authors lists for four links
         citations = test_object.cite()
-        self.assertEqual(len(citations), 2)
+        self.assertEqual(len(citations), 4)
+        print(citations)
 
 
 if __name__ == "__main__":

@@ -3,6 +3,89 @@ from urllib.request import urlopen, Request
 import re
 
 
+# Use a set to ensure that we do not have duplicate names in there
+def pubmed_authors(bs4_object, target_class="full-name"):
+    """
+    :param bs4_object: An object of class Beautiful Soup
+    :param target_class: Target class where the authors are found.
+    :return: Pubmed authors, abbreviated.
+    """
+    res = bs4_object.find_all("a", {'class': target_class})
+    res_no_dupes = res[:len(res) // 2]
+    authors = [x.text for x in res_no_dupes]
+    authors_final = []
+    for author in authors:
+        # Split by space
+        authors_split = re.split("\\s", author)
+        # Reverse author names, last first first last
+        authors_reverse = authors_split[::-1]
+        authors_reverse[1:] = [x[0] for x in authors_reverse[1:]]
+        # Join with a space
+        authors_joined = " ".join(authors_reverse)
+        authors_final.append(authors_joined)
+
+    # TODO: Make last author appear with the & instead of a comma
+    # TODO: Make middle name last in the abbreviations?
+
+    return ", ".join(authors_final)
+
+
+def remove_newlines(in_str):
+    """
+    :param in_str: Remove new lines and unwanted spaces
+    :return: A cleaner string
+    """
+
+    return re.sub("\\n|\\s{2,}", "", in_str)
+
+
+def pubmed_title(bs4_object):
+    """
+    :param bs4_object: An object of class Beautiful soup
+    :return: A pubmed journal article
+    """
+    return remove_newlines(bs4_object.find_all("h1", {"class": "heading-title"})[1].text)
+
+
+def pubmed_journal(bs4_object):
+    """
+    :param bs4_object: An object of class BeautifulSoup
+    :return: pubmed journal name
+    """
+    return remove_newlines(bs4_object.find_all("button",
+                                               {'class': 'journal-actions-trigger'})[0].text)
+
+
+def pubmed_year_volume_pages(bs4_object):
+    """
+    :param bs4_object: An object created with bs4's BeautifulSoup
+    :return: A tuple containing the year, volume, and page numbers
+    """
+    dates_vol_pages = re.split(":|;", bs4_object.find_all("span", {'class': 'cit'})[0].text)
+    year = re.split(" ", dates_vol_pages[0])[0]
+    return year
+    # if len(dates_vol_pages) == 1:
+    #     return res
+    # elif len(dates_vol_pages) == 2:
+    #     return res + dates_vol_pages[1]
+    # else:
+    #     return res + dates_vol_pages[1] + dates_vol_pages[2]
+
+
+def pubmed_final_citation(bs4_object):
+    """
+    :param bs4_object: An object of class BeautifulSoup
+    :return: A pubmed specific citation
+    """
+    # TODO: Figure out how to solve issues with inconsistent lengths of yr_vol_page
+    # return only years for now
+    final_citation = pubmed_authors(bs4_object) + " " + pubmed_title(bs4_object) + " (" + \
+                     pubmed_year_volume_pages(bs4_object) + ") " + pubmed_journal(bs4_object)
+    # + ", " + pubmed_year_volume_pages(bs4_object)[1] + ", " + \
+    # pubmed_year_volume_pages(bs4_object)[2]
+    return final_citation
+
+
 def split_authors(authors_list):
     """
     :param authors_list A list of authors to further split
@@ -39,6 +122,10 @@ class PyCite(object):
                 paper_link = urlopen(Request(line, headers={'User-Agent': 'XYZ/3.0'}))
                 # Convert to a BS4 object
                 bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
+                if "pubmed" in line:
+                    print(f"{line} looks like a pubmed link, using pubmed methods...")
+                    final_citations.append(pubmed_final_citation(bs4_link))
+                    continue
                 # Find title
                 title = bs4_link.find_all("h1", {"class": "content-title"})[0].text
                 journal_volumes = bs4_link.find_all("a", {"class": "navlink"})

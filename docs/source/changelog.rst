@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Initial support for Pubmed citations i.e. links in the form https://pubmed.ncbi.nlm.nih.gov/ 
+
+* 
   Explicitly set an HTML parser 
 
 * 

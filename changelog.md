@@ -3,6 +3,8 @@
 
 **pycite 0.1.1**
 
+* Initial support for Pubmed citations i.e. links in the form https://pubmed.ncbi.nlm.nih.gov/ 
+
 * Explicitly set an HTML parser 
 
 * Initial tests 

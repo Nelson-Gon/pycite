@@ -30,11 +30,13 @@
 
 - [x] NCBI
 
+- [x] Pubmed
+
 **Supported file formats**
 
 `pycite` generates citations given a file of the following types:
 
-- [ ] Text files (`.txt`)
+- [x] Text files (`.txt`)
 
 
 
@@ -91,13 +93,15 @@ To generate citations, one simply calls the `cite` method.
 my_citations.cite()
 ```
 
+# Notes
 
+This software is provided freely. If you have any concerns, please contact the author. Specifically, the papers
+used to test that the software works have been randomly chosen. In the event that you notice that any of those papers has 
+been retracted, please immediately inform the author to remove that paper from the tests.
 
----
+**For Science!**
 
-**Thank you very much and Keep Building**. 
-
-> To report any issues, suggestions or improvement, please do so 
+To report any issues, suggestions or improvement, please do so 
 at [issues](https://github.com/Nelson-Gon/pycite/issues). 
 
 > “Before software can be reusable it first has to be usable.” – Ralph Johnson
