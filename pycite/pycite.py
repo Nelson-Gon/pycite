@@ -14,20 +14,18 @@ def pubmed_authors(bs4_object, target_class="full-name"):
     res_no_dupes = res[:len(res) // 2]
     authors = [x.text for x in res_no_dupes]
     authors_final = []
+    authors_list = []
+
+    # Place last name in the front for each author
     for author in authors:
-        # Split by space
-        authors_split = re.split("\\s", author)
-        # Reverse author names, last first first last
-        authors_reverse = authors_split[::-1]
-        authors_reverse[1:] = [x[0] for x in authors_reverse[1:]]
-        # Join with a space
-        authors_joined = " ".join(authors_reverse)
-        authors_final.append(authors_joined)
+        author_name = author.split()
+        last_name = [author_name[len(author_name) - 1]]
+        author_name = last_name + author_name[:len(author_name) - 1]
+        authors_list.append(' '.join(author_name))
 
-    # TODO: Make last author appear with the & instead of a comma
-    # TODO: Make middle name last in the abbreviations?
-
-    return ", ".join(authors_final)
+    authors_list = split_authors(', '.join(authors_list))
+    authors = ', '.join(name for name in authors_list)
+    return authors
 
 
 def remove_newlines(in_str):
@@ -91,17 +89,22 @@ def split_authors(authors_list):
     :param authors_list A list of authors to further split
     :return A cleaner version of the authors list
     """
-
     test_split = re.split(",", authors_list)
-    splits = [re.split(" ", x) for x in test_split]
+    # Remove 'and' or & symbol from the last author if it exists
+    splits = [re.split("and |& | ", x) for x in test_split]
     final_authors = []
+
     for authors in splits:
         # Remove empty splits
         authors_split = list(filter(None, authors))
         # Abbreviate anything except the last name
-        split_at = 1 if len(authors_split) <= 2 else 2
-        authors_split[split_at:] = [x[:1] for x in authors_split[split_at:]]
+        last_name = 0
+        first_name = 1
+        authors_split = [authors_split[last_name]] + [''.join([x[:first_name] for x in authors_split[first_name:]])]
         final_authors.append(" ".join(authors_split))
+
+    # Make last author appear with the & symbol
+    final_authors[len(final_authors) - 1] = "& " + final_authors[len(final_authors) - 1]
     return final_authors
 
 
@@ -156,7 +159,7 @@ class PyCite(object):
                 authors_final = ",".join(authors_split_clean)
                 # Clean authors further
                 # TODO: This adds unnecessary steps, need to reduce this
-                authors_final = ",".join(split_authors(authors_final))
+                authors_final = ", ".join(split_authors(authors_final))
 
                 # Harvard Style
                 # Authors (Year) Title, journal, Volume, pages
