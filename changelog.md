@@ -1,10 +1,10 @@
 # pycite's changelog 
 
-**pycite 0.1.2**
-
-* Fixed the author formatting for NCBI and Pubmed articles
-
 **pycite 0.1.1**
+
+* `PyCite` now takes an `input_file` and `output_file` as arguments. 
+
+* Fixed issues with incorrect author formatting for NCBI and Pubmed articles
 
 * Initial support for Pubmed citations i.e. links in the form https://pubmed.ncbi.nlm.nih.gov/ 
 

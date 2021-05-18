@@ -13,7 +13,6 @@ def pubmed_authors(bs4_object, target_class="full-name"):
     res = bs4_object.find_all("a", {'class': target_class})
     res_no_dupes = res[:len(res) // 2]
     authors = [x.text for x in res_no_dupes]
-    authors_final = []
     authors_list = []
 
     # Place last name in the front for each author
@@ -59,7 +58,7 @@ def pubmed_year_volume_pages(bs4_object):
     :param bs4_object: An object created with bs4's BeautifulSoup
     :return: A tuple containing the year, volume, and page numbers
     """
-    dates_vol_pages = re.split(":|;", bs4_object.find_all("span", {'class': 'cit'})[0].text)
+    dates_vol_pages = re.split("[:;]", bs4_object.find_all("span", {'class': 'cit'})[0].text)
     year = re.split(" ", dates_vol_pages[0])[0]
     return year
     # if len(dates_vol_pages) == 1:
@@ -77,8 +76,8 @@ def pubmed_final_citation(bs4_object):
     """
     # TODO: Figure out how to solve issues with inconsistent lengths of yr_vol_page
     # return only years for now
-    final_citation = pubmed_authors(bs4_object) + " " + pubmed_title(bs4_object) + " (" + \
-                     pubmed_year_volume_pages(bs4_object) + ") " + pubmed_journal(bs4_object)
+    final_citation = (pubmed_authors(bs4_object) + " " + pubmed_title(bs4_object) + " (" +
+                      pubmed_year_volume_pages(bs4_object) + ") " + pubmed_journal(bs4_object))
     # + ", " + pubmed_year_volume_pages(bs4_object)[1] + ", " + \
     # pubmed_year_volume_pages(bs4_object)[2]
     return final_citation
@@ -109,24 +108,27 @@ def split_authors(authors_list):
 
 
 class PyCite(object):
-    def __init__(self, links_file):
+    def __init__(self, input_file, output_file):
         """
-        :param links_file A file containing links to papers to cite
-        :return An object of class pycite
+        :param input_file A file containing links to papers to cite.
+        :param output_file A file/filename to write citations to.
+        :return An object of class PyCite
         """
-        self.links_file = links_file
+        self.input_file = input_file
+        self.output_file = output_file
 
     def cite(self):
         final_citations = []
-        with open(self.links_file, "r") as links_file:
-            for line in links_file:
-                print(f"Now citing {line} found in {links_file.name}")
+        with open(self.input_file, "r") as in_file, open(self.output_file, "w") as out_file:
+            for line in in_file:
+                print(f"Now citing {line} found in {in_file.name}")
                 # Assume that links are inputted as lines in the input file
                 paper_link = urlopen(Request(line, headers={'User-Agent': 'XYZ/3.0'}))
                 # Convert to a BS4 object
                 bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
                 if "pubmed" in line:
                     print(f"{line} looks like a pubmed link, using pubmed methods...")
+                    out_file.write(f"{pubmed_final_citation(bs4_link)}\n")
                     final_citations.append(pubmed_final_citation(bs4_link))
                     continue
                 # Find title
@@ -165,5 +167,7 @@ class PyCite(object):
                 # Authors (Year) Title, journal, Volume, pages
                 # TODO: Add page numbers
                 # TODO: Make italics
-                final_citations.append(authors_final + " " + title + " (" + year + ") " + journal + ", " + volume)
+                combined_citation = authors_final + " " + title + " (" + year + ") " + journal + ", " + volume
+                out_file.write(f"{combined_citation}\n")
+                final_citations.append(combined_citation)
         return final_citations

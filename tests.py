@@ -13,14 +13,15 @@ from pycite.pycite import PyCite
 
 test_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testfiles")
 
-txt_file = os.path.join(test_dir, "testlinks.txt")
+in_file = os.path.join(test_dir, "testlinks.txt")
+out_file = os.path.join(test_dir, "citations.txt")
 
 
-class Testpycite(unittest.TestCase):
+class TestPyCite(unittest.TestCase):
 
     def test_pycite(self):
         # Create an object of class PyCite
-        test_object = PyCite(txt_file)
+        test_object = PyCite(in_file, out_file)
         self.assertTrue(isinstance(test_object, PyCite))
         # Check that we have four authors lists for four links
         citations = test_object.cite()
