@@ -84,12 +84,14 @@ from pycite.pycite import PyCite
 ```
 
 ```python
-my_citations = PyCite("testfiles/testlinks.txt")
+# Need an input-output file pair 
+my_citations = PyCite(input_file="testfiles/testlinks.txt", output_file="testfiles/citations.txt")
 ```
 
 To generate citations, one simply calls the `cite` method.
 
 ```python
+# This will write citations in the provided output file 
 my_citations.cite()
 ```
 
