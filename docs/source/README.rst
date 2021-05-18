@@ -152,6 +152,14 @@ To generate citations, one simply calls the ``cite`` method.
    # This will write citations in the provided output file 
    my_citations.cite()
 
+The above gives us (only the first line is shown here). 
+See `citations.txt <https://github.com/Nelson-Gon/pycite/blob/main/testfiles/citations.txt>`_ for the full file.
+
+.. code-block:: shell
+
+
+   Pohorille A, Wilson MA, & Shannon G Flexible Proteins at the Origin of Life (2017) Life (Basel), 7(2)
+
 Notes
 =====
 
