@@ -2,6 +2,11 @@
 pycite's changelog
 ==================
 
+**pycite 0.1.2**
+
+
+* Fixed the author formatting for NCBI and Pubmed articles
+
 **pycite 0.1.1**
 
 
