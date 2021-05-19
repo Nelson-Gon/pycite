@@ -1,9 +1,7 @@
 name: Auto Docs
 
 on:
-  push:
-    branches: [ build-docs ]
-    paths: ["docs"]
+  push: {branches: [build-docsg], paths:["docs"]}
 
 
 
