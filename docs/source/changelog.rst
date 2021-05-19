@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Fixed issues with inconsistent tuple lengths in Pubmed citations https://github.com/Nelson-Gon/pycite/issues/2
+
+* 
   ``PyCite`` now takes an ``input_file`` and ``output_file`` as arguments. 
 
 * 

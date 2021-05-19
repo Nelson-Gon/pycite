@@ -2,6 +2,8 @@
 
 **pycite 0.1.1**
 
+* Fixed issues with inconsistent tuple lengths in Pubmed citations https://github.com/Nelson-Gon/pycite/issues/2
+
 * `PyCite` now takes an `input_file` and `output_file` as arguments. 
 
 * Fixed issues with incorrect author formatting for NCBI and Pubmed articles

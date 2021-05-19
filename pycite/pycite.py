@@ -3,7 +3,6 @@ from urllib.request import urlopen, Request
 import re
 
 
-# Use a set to ensure that we do not have duplicate names in there
 def pubmed_authors(bs4_object, target_class="full-name"):
     """
     :param bs4_object: An object of class Beautiful Soup
@@ -11,6 +10,7 @@ def pubmed_authors(bs4_object, target_class="full-name"):
     :return: Pubmed authors, abbreviated.
     """
     res = bs4_object.find_all("a", {'class': target_class})
+    # Delete duplicate entries
     res_no_dupes = res[:len(res) // 2]
     authors = [x.text for x in res_no_dupes]
     authors_list = []
@@ -60,13 +60,11 @@ def pubmed_year_volume_pages(bs4_object):
     """
     dates_vol_pages = re.split("[:;]", bs4_object.find_all("span", {'class': 'cit'})[0].text)
     year = re.split(" ", dates_vol_pages[0])[0]
-    return year
-    # if len(dates_vol_pages) == 1:
-    #     return res
-    # elif len(dates_vol_pages) == 2:
-    #     return res + dates_vol_pages[1]
-    # else:
-    #     return res + dates_vol_pages[1] + dates_vol_pages[2]
+    # doi +/ s.*
+    # Only need the s.* not the doi
+    paper_identity = bs4_object.find_all("span", {"class": "citation-doi"})[0].text
+    no_doi = re.sub(".*/(?=[Ss])", "", paper_identity.split()[1])
+    return year, no_doi
 
 
 def pubmed_final_citation(bs4_object):
@@ -74,12 +72,11 @@ def pubmed_final_citation(bs4_object):
     :param bs4_object: An object of class BeautifulSoup
     :return: A pubmed specific citation
     """
-    # TODO: Figure out how to solve issues with inconsistent lengths of yr_vol_page
-    # return only years for now
+    # TODO: Add page numbers where applicable
+    yrs_vols_pages = pubmed_year_volume_pages(bs4_object)
     final_citation = (pubmed_authors(bs4_object) + " " + pubmed_title(bs4_object) + " (" +
-                      pubmed_year_volume_pages(bs4_object) + ") " + pubmed_journal(bs4_object))
-    # + ", " + pubmed_year_volume_pages(bs4_object)[1] + ", " + \
-    # pubmed_year_volume_pages(bs4_object)[2]
+                      yrs_vols_pages[0] + ") " + pubmed_journal(bs4_object)) + " " + yrs_vols_pages[1]
+
     return final_citation
 
 
