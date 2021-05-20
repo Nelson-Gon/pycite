@@ -134,6 +134,30 @@ Otherwise:
 Usage
 =====
 
+**Script Mode**
+
+To use at the command line, please use:
+
+.. code-block:: shell
+
+   python -m pycite -i testfiles/testlinks.txt -o testfiles/citations.txt
+
+To get help:
+
+.. code-block:: shell
+
+   python -m pycite --help
+   #usage: __main__.py [-h] -i INPUT_FILE -o OUTPUT_FILE
+   #
+   #optional arguments:
+   #  -h, --help            show this help message and exit
+   #  -i INPUT_FILE, --input-file INPUT_FILE
+   #                        Path to an input file
+   #  -o OUTPUT_FILE, --output-file OUTPUT_FILE
+   #                        Path to an output file
+
+**Programming Mode**
+
 First, one needs to create an object of class ``PyCite``
 
 .. code-block:: python

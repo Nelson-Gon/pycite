@@ -2,6 +2,11 @@
 pycite's changelog
 ==================
 
+**pycite 0.1.2**
+
+
+* Initial support for a script mode. 
+
 **pycite 0.1.1**
 
 

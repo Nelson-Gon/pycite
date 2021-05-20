@@ -1,5 +1,9 @@
 # pycite's changelog 
 
+**pycite 0.1.2**
+
+* Initial support for a script mode. 
+
 **pycite 0.1.1**
 
 * Fixed issues with inconsistent tuple lengths in Pubmed citations https://github.com/Nelson-Gon/pycite/issues/2
