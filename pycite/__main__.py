@@ -21,7 +21,7 @@ def main():
     use_arguments = args_parser.parse_args()
     # Create a PyCite object
     use_object = PyCite(use_arguments.input_file, use_arguments.output_file,
-                        show_doi=make_bool(use.arguments.show_doi))
+                        show_doi=make_bool(use_arguments.show_doi))
 
     try:
         use_object.cite()
