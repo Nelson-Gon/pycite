@@ -14,8 +14,9 @@ def main():
     def make_bool(in_str):
         bools_dict = {"True":True, "TRUE":True,1:True,"1":True,
                       "T":True, "False": False, "F": False, "0": False,
-                      "FALSE": FALSE, 0: False}
-        return bools_dict[in_str]
+                      "FALSE": False, 0: False}
+        if in_str:
+            return bools_dict[in_str]
 
 
     use_arguments = args_parser.parse_args()
