@@ -8,7 +8,7 @@ def main():
 
     args_parser.add_argument("-i", "--input-file", type=str, required=True,help="Path to an input file")
     args_parser.add_argument("-o", "--output-file", type=str, required=True, help="Path to an output file")
-    args_parser.add_argument("-s", "--show-doi",type=str, required=True, help="Should DOIs be shown?")
+    args_parser.add_argument("-s", "--show-doi",type=str, required=False, help="Should DOIs be shown?")
 
     # Make boolean
     def make_bool(in_str):
