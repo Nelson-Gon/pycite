@@ -2,6 +2,8 @@
 
 **pycite 0.1.2**
 
+* For PubMed citations, an optional `show_doi` argument was added to control whether dois should exist in the citation.
+
 * Initial support for a script mode. 
 
 **pycite 0.1.1**

@@ -53,29 +53,38 @@ def pubmed_journal(bs4_object):
                                                {'class': 'journal-actions-trigger'})[0].text)
 
 
-def pubmed_year_volume_pages(bs4_object):
+def pubmed_year_volume_pages(bs4_object, show_doi=False):
     """
     :param bs4_object: An object created with bs4's BeautifulSoup
+    :param show_doi Boolean to control if DOIs should be included in citations. Defaults to False
     :return: A tuple containing the year, volume, and page numbers
     """
-    dates_vol_pages = re.split("[:;]", bs4_object.find_all("span", {'class': 'cit'})[0].text)
+    # Split only along ; since we can already obtain the DOI elsewhere.
+    dates_vol_pages = re.split("[;]", bs4_object.find_all("span", {'class': 'cit'})[0].text)
+    # Split year in the form Y M D along a space, year comes first
     year = re.split(" ", dates_vol_pages[0])[0]
     # doi +/ s.*
-    # Only need the s.* not the doi
     paper_identity = bs4_object.find_all("span", {"class": "citation-doi"})[0].text
-    no_doi = re.sub(".*/(?=[Ss])", "", paper_identity.split()[1])
-    return year, no_doi
+    # no_doi = re.sub(".*/(?=[Ss])", "", paper_identity.split()[1])
+
+    return year, remove_newlines(paper_identity) if show_doi else year
 
 
-def pubmed_final_citation(bs4_object):
+def pubmed_final_citation(bs4_object, show_doi=False):
     """
     :param bs4_object: An object of class BeautifulSoup
+    :param show_doi Boolean to control if DOIs should be included in citations. Defaults to False
     :return: A pubmed specific citation
     """
     # TODO: Add page numbers where applicable
-    yrs_vols_pages = pubmed_year_volume_pages(bs4_object)
+    yrs_vols_pages = pubmed_year_volume_pages(bs4_object, show_doi=show_doi)
+    # For some reason, year is returned as a tuple with dupes so
+    # Need to get the year "twice" here again
+    year = yrs_vols_pages[0] if show_doi else yrs_vols_pages[0][0]
     final_citation = (pubmed_authors(bs4_object) + " " + pubmed_title(bs4_object) + " (" +
-                      yrs_vols_pages[0] + ") " + pubmed_journal(bs4_object)) + " " + yrs_vols_pages[1]
+                      year + ") " + pubmed_journal(bs4_object))
+    if show_doi:
+        final_citation = final_citation + " " + yrs_vols_pages[1]
 
     return final_citation
 
@@ -105,14 +114,16 @@ def split_authors(authors_list):
 
 
 class PyCite(object):
-    def __init__(self, input_file, output_file):
+    def __init__(self, input_file, output_file, show_doi=False):
         """
         :param input_file A file containing links to papers to cite.
         :param output_file A file/filename to write citations to.
+        :param show_doi Boolean to control if DOIs should be included in citations. Defaults to False.
         :return An object of class PyCite
         """
         self.input_file = input_file
         self.output_file = output_file
+        self.show_doi = show_doi
 
     def cite(self):
         final_citations = []
@@ -125,8 +136,8 @@ class PyCite(object):
                 bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
                 if "pubmed" in line:
                     print(f"{line} looks like a pubmed link, using pubmed methods...")
-                    out_file.write(f"{pubmed_final_citation(bs4_link)}\n")
-                    final_citations.append(pubmed_final_citation(bs4_link))
+                    out_file.write(f"{pubmed_final_citation(bs4_link,show_doi=self.show_doi)}\n")
+                    final_citations.append(pubmed_final_citation(bs4_link,show_doi=self.show_doi))
                     continue
                 # Find title
                 title = bs4_link.find_all("h1", {"class": "content-title"})[0].text
