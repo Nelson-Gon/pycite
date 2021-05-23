@@ -195,7 +195,6 @@ class PyCite(object):
 
                 # Harvard Style
                 # Authors (Year) Title, journal, Volume, pages
-                # TODO: Add page numbers
                 # TODO: Make italics
                 # TODO: Write specific methods for NCBI, break up into simpler functions
                 combined_citation = (authors_final + " " + title + " (" + year + ") " + journal + ", "

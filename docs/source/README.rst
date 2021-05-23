@@ -181,15 +181,14 @@ See `citations.txt <https://github.com/Nelson-Gon/pycite/blob/main/testfiles/cit
 
 .. code-block:: shell
 
-
-   Pohorille A, Wilson MA, & Shannon G Flexible Proteins at the Origin of Life (2017) Life (Basel), 7(2)
+   Pohorille A, Wilson MA, & Shannon G Flexible Proteins at the Origin of Life (2017) Life (Basel), 7(2),  23.
 
 Notes
 =====
 
 This software is provided freely. If you have any concerns, please contact the author. Specifically, the papers
 used to test that the software works have been randomly chosen. In the event that you notice that any of those papers has 
-been retracted, please immediately inform the author to remove that paper from the tests.
+been retracted, please immediately inform the author to remove that paper from the tests. 
 
 **For Science!**
 
