@@ -166,6 +166,11 @@ class PyCite(object):
                 vol_yr_split = re.split(";", volume_year)
                 # index to remove the "v" from volumes
                 volume = vol_yr_split[0][2:]
+                # Pages
+                # Split along a colon, the result is the page number
+                # -1 to get the last result in the list returned
+                page_numbers = re.split(":",bs4_link.find_all("div", {"class": "part1"})[0].text)[-1]
+                page_numbers = remove_newlines(page_numbers)
                 # year
                 year = re.sub(r"\D", "", vol_yr_split[1])
 
@@ -193,7 +198,8 @@ class PyCite(object):
                 # TODO: Add page numbers
                 # TODO: Make italics
                 # TODO: Write specific methods for NCBI, break up into simpler functions
-                combined_citation = authors_final + " " + title + " (" + year + ") " + journal + ", " + volume
+                combined_citation = (authors_final + " " + title + " (" + year + ") " + journal + ", "
+                                     + volume + ", " + page_numbers)
                 out_file.write(f"{combined_citation}\n")
                 final_citations.append(combined_citation)
         return final_citations

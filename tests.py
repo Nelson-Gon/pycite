@@ -23,9 +23,9 @@ class TestPyCite(unittest.TestCase):
         # Create an object of class PyCite
         test_object = PyCite(in_file, out_file, show_doi=False)
         self.assertTrue(isinstance(test_object, PyCite))
-        # Check that we have four authors lists for four links
+        # Check that we have the expected number of citations
         citations = test_object.cite()
-        self.assertEqual(len(citations), 8)
+        self.assertEqual(len(citations), 9)
         print(citations)
 
 

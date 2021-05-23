@@ -2,6 +2,7 @@
 
 **pycite 0.1.2**
 
+* NCBI citations now include pagee numbers.
 * Script mode now has an optional `show_doi` argument to control DOI additions to PubMed citations. 
 * PUbMed citations now include page numbers, where applicable. See https://github.com/Nelson-Gon/pycite/issues/2
 
