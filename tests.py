@@ -15,6 +15,7 @@ test_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testfiles")
 
 in_file = os.path.join(test_dir, "testlinks.txt")
 out_file = os.path.join(test_dir, "citations.txt")
+in_file_unsupported = os.path.join(test_dir, "unsupportedlinks.txt")
 
 
 class TestPyCite(unittest.TestCase):
@@ -27,6 +28,15 @@ class TestPyCite(unittest.TestCase):
         citations = test_object.cite()
         self.assertEqual(len(citations), 9)
         print(citations)
+        # Check that we can raise exceptions whenever necessary
+        with self.assertRaises(ValueError) as err:
+            test_nonsupported = PyCite(in_file_unsupported, out_file, show_doi=False)
+            test_nonsupported.cite()
+            # Expect an error to do with SSL certificate verification
+            # Not the most ideal way as this exception may change in the future
+            # TODO: Assertions for error codes from HTTPError instead of URLError
+        self.assertTrue("certificate verify failed" in str(err.exception))
+
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 import bs4
 from urllib.request import urlopen, Request
+from urllib.error import HTTPError, URLError
 import re
 
 
@@ -204,19 +205,25 @@ class PyCite(object):
         with open(self.input_file, "r") as in_file, open(self.output_file, "w") as out_file:
             for line in in_file:
                 # Assume that links are inputted as lines in the input file
-                paper_link = urlopen(Request(line, headers={'User-Agent': 'XYZ/3.0'}))
-                # Convert to a BS4 object
-                bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
-                if "pubmed" in line:
-                    print(f"{line} in {in_file.name} looks like a pubmed link, using pubmed methods...")
-                    out_file.write(f"{pubmed_final_citation(bs4_link,show_doi=self.show_doi)}\n")
-                    final_citations.append(pubmed_final_citation(bs4_link,show_doi=self.show_doi))
-                    continue
-                if "ncbi" in line:
-                    print(f"{line} in {in_file.name} looks like NCBI to me...")
-                    out_file.write(f"{ncbi_final_citation(bs4_link)}\n")
-                    final_citations.append(ncbi_final_citation(bs4_link))
-                    continue
+                try:
+                    paper_link = urlopen(Request(line, headers={'User-Agent': 'XYZ/3.0'}))
+                except HTTPError as err:
+                    raise ValueError(f"{line} not reachable, code: {str(err.code)}")
+                except URLError as err:
+                    raise ValueError(f"{line} not reachable, reason: {str(err.reason)}")
+                else:
+                    # Convert to a BS4 object
+                    bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
+                    if "pubmed" in line:
+                        print(f"{line} in {in_file.name} looks like a pubmed link, using pubmed methods...")
+                        out_file.write(f"{pubmed_final_citation(bs4_link,show_doi=self.show_doi)}\n")
+                        final_citations.append(pubmed_final_citation(bs4_link,show_doi=self.show_doi))
+                        continue
+                    if "ncbi" in line:
+                        print(f"{line} in {in_file.name} looks like NCBI to me...")
+                        out_file.write(f"{ncbi_final_citation(bs4_link)}\n")
+                        final_citations.append(ncbi_final_citation(bs4_link))
+                        continue
 
         return final_citations
 

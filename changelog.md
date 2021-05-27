@@ -2,6 +2,8 @@
 
 **pycite 0.1.2**
 
+* Extended tests to ensure that we raise custom exceptions as necessary.  
+
 * NCBI citations now include page numbers.
 * Script mode now has an optional `show_doi` argument to control DOI additions to PubMed citations. 
 * PUbMed citations now include page numbers, where applicable. See https://github.com/Nelson-Gon/pycite/issues/2
