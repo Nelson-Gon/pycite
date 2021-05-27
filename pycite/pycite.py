@@ -2,7 +2,7 @@ import bs4
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError, URLError
 import re
-
+import os
 
 def pubmed_authors(bs4_object, target_class="full-name"):
     """
@@ -199,6 +199,19 @@ class PyCite(object):
         self.input_file = input_file
         self.output_file = output_file
         self.show_doi = show_doi
+
+        # Assert file existence
+        for _file in [self.input_file, self.output_file]:
+            try:
+                assert os.path.isfile(_file), f"{_file} does not exist"
+            except AssertionError:
+                # Perhapse check for specific OS Errors eg not a file error, etc?
+                # Using an assertion error seems simple but may be less specific.
+                raise
+            else:
+                pass
+
+
 
     def cite(self):
         final_citations = []

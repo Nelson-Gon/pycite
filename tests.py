@@ -16,6 +16,7 @@ test_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testfiles")
 in_file = os.path.join(test_dir, "testlinks.txt")
 out_file = os.path.join(test_dir, "citations.txt")
 in_file_unsupported = os.path.join(test_dir, "unsupportedlinks.txt")
+non_existing_file = "notafile.txt"
 
 
 class TestPyCite(unittest.TestCase):
@@ -36,6 +37,10 @@ class TestPyCite(unittest.TestCase):
             # Not the most ideal way as this exception may change in the future
             # TODO: Assertions for error codes from HTTPError instead of URLError
         self.assertTrue("certificate verify failed" in str(err.exception))
+        # Check that non existing files throw an assertion error as expected
+        with self.assertRaises(AssertionError) as err:
+            non_valid_file_object = PyCite(non_existing_file,"notvalidttoo.txt",show_doi=False)
+        self.assertEqual(str(err.exception), "notafile.txt does not exist")
 
 
 
