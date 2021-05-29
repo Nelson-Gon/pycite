@@ -200,16 +200,32 @@ class PyCite(object):
         self.output_file = output_file
         self.show_doi = show_doi
 
+
+
+
+
         # Assert file existence
         for _file in [self.input_file, self.output_file]:
             try:
                 assert os.path.isfile(_file), f"{_file} does not exist"
             except AssertionError:
-                # Perhapse check for specific OS Errors eg not a file error, etc?
+                # Perhaps check for specific OS Errors eg not a file error, etc?
                 # Using an assertion error seems simple but may be less specific.
-                raise
+                raise FileNotFoundError(f"{_file} does not exist")
             else:
-                pass
+                # Get format of file, for now only support txt files
+                file_format = re.findall("\\.(\\w+)", _file)
+                if file_format:
+                    file_format = file_format[0]
+                    try:
+                        assert file_format == "txt", f"Only txt files supported for now, not {file_format}"
+                    except AssertionError:
+                        raise
+                    else:
+                        pass
+                else:
+                    raise ValueError(f"No file format was detected in {_file}, exiting...")
+
 
 
 

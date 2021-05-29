@@ -16,7 +16,9 @@ test_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testfiles")
 in_file = os.path.join(test_dir, "testlinks.txt")
 out_file = os.path.join(test_dir, "citations.txt")
 in_file_unsupported = os.path.join(test_dir, "unsupportedlinks.txt")
-non_existing_file = "notafile.txt"
+non_existing_file = os.path.join(test_dir,"notafile.txt")
+not_txt = os.path.join(test_dir,"nottxt.pdf")
+no_format = os.path.join(test_dir,"nofileformat")
 
 
 class TestPyCite(unittest.TestCase):
@@ -35,12 +37,23 @@ class TestPyCite(unittest.TestCase):
             test_nonsupported.cite()
             # Expect an error to do with SSL certificate verification
             # Not the most ideal way as this exception may change in the future
-            # TODO: Assertions for error codes from HTTPError instead of URLError
         self.assertTrue("certificate verify failed" in str(err.exception))
-        # Check that non existing files throw an assertion error as expected
+        # Check that non existing files throw a FileNotFoundError for now
+        with self.assertRaises(FileNotFoundError) as err:
+            PyCite(non_existing_file,"notvalidttoo.txt",show_doi=False)
+        self.assertTrue("notafile.txt does not exist" in str(err.exception))
+
+
+
+        # Check that we only have the expected file format, txt for now
         with self.assertRaises(AssertionError) as err:
-            non_valid_file_object = PyCite(non_existing_file,"notvalidttoo.txt",show_doi=False)
-        self.assertEqual(str(err.exception), "notafile.txt does not exist")
+            not_txt_object = PyCite(not_txt, "nottxt.pdf")
+        self.assertEqual(str(err.exception), "Only txt files supported for now, not pdf")
+
+        # Check that if no file format exists, we raise a ValueError
+        with self.assertRaises(ValueError) as err:
+            no_file_format = PyCite(no_format, no_format)
+        self.assertTrue("No file format was detected" in str(err.exception))
 
 
 
