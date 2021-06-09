@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Initial support for Science Direct papers. See `#6 <https://github.com/Nelson-Gon/pycite/issues/6>`_.  
+
+* 
   New modules ``ncbi``\ , ``helpers``\ , and ``pubmed`` can be imported with ambiguous ``*`` imports. 
 
 * 

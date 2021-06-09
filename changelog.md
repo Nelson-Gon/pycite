@@ -2,6 +2,8 @@
 
 **pycite 0.1.2**
 
+* Initial support for Science Direct papers. See [#6](https://github.com/Nelson-Gon/pycite/issues/6).  
+
 * New modules `ncbi`, `helpers`, and `pubmed` can be imported with ambiguous `*` imports. 
 
 * Introduced new modules "helpers", "ncbi", and "pubmed" to allow for some order and ensure we do not have a 
