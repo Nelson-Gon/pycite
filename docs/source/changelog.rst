@@ -6,6 +6,13 @@ pycite's changelog
 
 
 * 
+  New modules ``ncbi``\ , ``helpers``\ , and ``pubmed`` can be imported with ambiguous ``*`` imports. 
+
+* 
+  Introduced new modules "helpers", "ncbi", and "pubmed" to allow for some order and ensure we do not have a 
+  super long single file package. This really is to keep things tidy. 
+
+* 
   Extended tests to ensure that we raise custom exceptions as necessary.  
 
 * 
