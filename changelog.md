@@ -2,6 +2,9 @@
 
 **pycite 0.1.2**
 
+* Introduce new modules "helpers", "ncbi", and "pubmed" to allow for some order and ensure we do not have a 
+super long single file package. This really is to keep things tidy. 
+
 * Extended tests to ensure that we raise custom exceptions as necessary.  
 
 * NCBI citations now include page numbers.
