@@ -1,7 +1,7 @@
 import bs4
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError, URLError
-from . import ncbi, pubmed
+from . import ncbi, pubmed, sciencedirect
 import re
 import os
 
@@ -74,6 +74,13 @@ class PyCite(object):
                         out_file.write(f"{ncbi.ncbi_final_citation(bs4_link)}\n")
                         final_citations.append(ncbi.ncbi_final_citation(bs4_link))
                         continue
+                        # TODO: Avoid repetition, use a single method to call the relevant methods e.g. a dict?
+                    if "sciencedirect" in line:
+                        print(f"{line} in {in_file.name} looks like Science Direct to me...")
+                        out_file.write(f"{sciencedirect.sd_final_citation(bs4_link)}\n")
+                        final_citations.append(sciencedirect.sd_final_citation(bs4_link))
+                        continue
+
 
         return final_citations
 

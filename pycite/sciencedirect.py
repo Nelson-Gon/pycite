@@ -23,6 +23,8 @@ def sd_authors(bs4_object):
     # Combine surname plus last name
     # TODO: Assert that lengths of surnames and given are equal
     authors_list = list(map(lambda x, y: x + " " + y, surnames, given_joined))
+    # Make last appear with &
+    authors_list[len(authors_list) - 1] = "& " + authors_list[len(authors_list) - 1]
     return ",".join(authors_list)
 
 def sd_vol_year_pages(bs4_object, target={"class": "text-xs"}):
@@ -49,8 +51,6 @@ def sd_final_citation(bs4_object):
                 + sd_title(bs4_object) + ". " + sd_journal_name(bs4_object) + ", " + sd_vol_year_pages(bs4_object)[0]
                 + "(" + sd_vol_year_pages(bs4_object)[1] + "), " + sd_vol_year_pages(bs4_object)[3])
     return combined
-
-
 
 
 
