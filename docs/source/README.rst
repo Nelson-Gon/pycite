@@ -94,6 +94,9 @@ pycite: Python Citations Generator
 * 
   [x] Pubmed
 
+* 
+  [x] ScienceDirect 
+
 **Supported file formats**
 
 ``pycite`` generates citations given a file of the following types:
@@ -187,8 +190,8 @@ Notes
 =====
 
 This software is provided freely. If you have any concerns, please contact the author. Specifically, the papers
-used to test that the software works have been randomly chosen. In the event that you notice that any of those papers has 
-been retracted, please immediately inform the author to remove that paper from the tests. 
+used to test that the software works have been randomly chosen. In the event that you notice that any of those papers 
+has been retracted, please immediately inform the author to remove that paper from the tests. 
 
 **For Science!**
 

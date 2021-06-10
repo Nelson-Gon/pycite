@@ -3,11 +3,23 @@ import re
 
 
 def sd_title(bs4_object, target={"class":"title-text"}):
+    """
+
+    :param bs4_object: An object of class BeautifulSoup
+    :param target: Target HTML tag. Defaults to class:title-text, a dict.
+    :return: Returns paper title from Science Direct
+    """
+
     return bs4_object.find_all("span",target)[0].text
 
 
 
 def sd_authors(bs4_object):
+    """
+
+    :param bs4_object: An object of class BeautifulSoup
+    :return: Authors list
+    """
     # Authors are listed separately on the site at this time i.e given alone
     # and last alone
     sd_given = bs4_object.find_all("span", {"class": "given-name"})
@@ -28,6 +40,13 @@ def sd_authors(bs4_object):
     return ",".join(authors_list)
 
 def sd_vol_year_pages(bs4_object, target={"class": "text-xs"}):
+    """
+
+    :param bs4_object: An object of class BeautifulSoup
+    :param target: A dict specifying the target HTML tag
+    :return: Volume, Year, Pages
+    """
+
     vol_year_pages = bs4_object.find_all("div", target)[0].text
     # Volume, issue, date including year d/sm/sy, pages
     # Split along comma
@@ -43,10 +62,21 @@ def sd_vol_year_pages(bs4_object, target={"class": "text-xs"}):
     return volume, issue, year, pages
 
 def sd_journal_name(bs4_object):
+    """
+
+    :param bs4_object: An object of class BeautifulSoup
+    :return: Journal Name
+    """
     return bs4_object.find_all("a", {"class":"publication-title-link"})[0].text
 
 
 def sd_final_citation(bs4_object):
+    """
+
+    :param bs4_object: An object of class BeautifulSoup
+    :return: Final citation of a science direct paper.
+    """
+
     combined = (sd_authors(bs4_object) + " " + "(" + sd_vol_year_pages(bs4_object)[2]  + ") "
                 + sd_title(bs4_object) + ". " + sd_journal_name(bs4_object) + ", " + sd_vol_year_pages(bs4_object)[0]
                 + "(" + sd_vol_year_pages(bs4_object)[1] + "), " + sd_vol_year_pages(bs4_object)[3])

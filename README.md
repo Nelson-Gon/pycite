@@ -32,6 +32,8 @@
 
 - [x] Pubmed
 
+- [x] ScienceDirect 
+
 **Supported file formats**
 
 `pycite` generates citations given a file of the following types:
@@ -122,6 +124,7 @@ my_citations.cite()
 
 The above gives us (only the first line is shown here). 
 See [citations.txt](https://github.com/Nelson-Gon/pycite/blob/main/testfiles/citations.txt) for the full file.
+
 ```shell
 Pohorille A, Wilson MA, & Shannon G Flexible Proteins at the Origin of Life (2017) Life (Basel), 7(2),  23. 
 ```
@@ -129,8 +132,8 @@ Pohorille A, Wilson MA, & Shannon G Flexible Proteins at the Origin of Life (201
 # Notes
 
 This software is provided freely. If you have any concerns, please contact the author. Specifically, the papers
-used to test that the software works have been randomly chosen. In the event that you notice that any of those papers has 
-been retracted, please immediately inform the author to remove that paper from the tests. 
+used to test that the software works have been randomly chosen. In the event that you notice that any of those papers 
+has been retracted, please immediately inform the author to remove that paper from the tests. 
 
 **For Science!**
 
