@@ -101,7 +101,5 @@ def sd_final_citation(bs4_object):
 
 
 
-from urllib.request import urlopen, Request
-import bs4
 
 

@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Fixed issues with mix up of science direct volumes, years, pages. See `#7 <https://github.com/Nelson-Gon/pycite/issues/7>`_. 
+
+* 
   Initial support for Science Direct papers. See `#6 <https://github.com/Nelson-Gon/pycite/issues/6>`_.  
 
 * 
