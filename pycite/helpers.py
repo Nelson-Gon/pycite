@@ -28,5 +28,5 @@ def split_authors(authors_list):
         authors_split = [authors_split[last_name]] + [''.join([x[:first_name] for x in authors_split[first_name:]])]
         final_authors.append(" ".join(authors_split))
         # Make last author appear with the & symbol
-        final_authors[len(final_authors) - 1] = "& " + final_authors[len(final_authors) - 1]
+        #final_authors[len(final_authors) - 1] = "& " + final_authors[len(final_authors) - 1]
     return final_authors

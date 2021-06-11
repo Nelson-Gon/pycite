@@ -33,10 +33,10 @@ def sd_authors(bs4_object):
     # Join as single string
     given_joined = ["".join(x) for x in given_split]
     # Combine surname plus last name
-    # TODO: Assert that lengths of surnames and given are equal
+    assert len(surnames) == len(given_joined), "Unequal lengths of surname and given name lists."
     authors_list = list(map(lambda x, y: x + " " + y, surnames, given_joined))
-    # Make last appear with &
-    authors_list[len(authors_list) - 1] = "& " + authors_list[len(authors_list) - 1]
+    # TODO: Make last appear with &
+    ##authors_list[len(authors_list) - 1] = "& " + authors_list[len(authors_list) - 1]
     return ",".join(authors_list)
 
 def sd_vol_year_pages(bs4_object, target={"class": "text-xs"}):
@@ -51,15 +51,31 @@ def sd_vol_year_pages(bs4_object, target={"class": "text-xs"}):
     # Volume, issue, date including year d/sm/sy, pages
     # Split along comma
     vol_year_pages_split = vol_year_pages.split(",")
+    return vol_year_pages_split
+
+def sd_volume(bs4_object):
     # Volume: Remove the word Volume
-    volume = re.sub("\D","",vol_year_pages_split[0])
-    issue = re.sub("\D","",vol_year_pages_split[1])
+    volume = re.sub("\D", "", sd_vol_year_pages(bs4_object)[0])
+    return volume
+
+def sd_year(bs4_object):
     # If DMY, split along a space, whatever comes last is the year
     # TODO: Assert that year lengths is 2
-    year = vol_year_pages_split[2].split()[-1]
-    # TODO: This seems so forced, need to be more precise in removing non digits
-    pages = re.sub(" Pages ", "", vol_year_pages_split[-1])
-    return volume, issue, year, pages
+   if len(sd_vol_year_pages(bs4_object)) == 4:
+        return  sd_vol_year_pages(bs4_object)[2].split()[-1]
+   else:
+        return sd_vol_year_pages(bs4_object)[1].split()[-1]
+
+def sd_issue(bs4_object):
+    # if issue exists, it should come second i.e. at index 1
+    if len(sd_vol_year_pages(bs4_object)) == 3:
+        return ","
+    else:
+        return "(" + re.sub("\D","",sd_vol_year_pages(bs4_object)[1]) + "), "
+
+def sd_pages(bs4_object):
+    return re.sub(" Pages ", "", sd_vol_year_pages(bs4_object)[-1])
+
 
 def sd_journal_name(bs4_object):
     """
@@ -76,17 +92,16 @@ def sd_final_citation(bs4_object):
     :param bs4_object: An object of class BeautifulSoup
     :return: Final citation of a science direct paper.
     """
-
-    combined = (sd_authors(bs4_object) + " " + "(" + sd_vol_year_pages(bs4_object)[2]  + ") "
-                + sd_title(bs4_object) + ". " + sd_journal_name(bs4_object) + ", " + sd_vol_year_pages(bs4_object)[0]
-                + "(" + sd_vol_year_pages(bs4_object)[1] + "), " + sd_vol_year_pages(bs4_object)[3])
+    combined = (sd_authors(bs4_object) + " " + "(" + sd_year(bs4_object) + ") "
+                + sd_title(bs4_object) + ". " + sd_journal_name(bs4_object) + ", " + sd_volume(bs4_object)
+                +  sd_issue(bs4_object) + sd_pages(bs4_object))
     return combined
 
 
 
 
 
-
-
+from urllib.request import urlopen, Request
+import bs4
 
 

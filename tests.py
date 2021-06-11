@@ -29,7 +29,7 @@ class TestPyCite(unittest.TestCase):
         self.assertTrue(isinstance(test_object, PyCite))
         # Check that we have the expected number of citations
         citations = test_object.cite()
-        self.assertEqual(len(citations), 11)
+        self.assertEqual(len(citations), 12)
         print(citations)
         # Check that we can raise exceptions whenever necessary
         # with self.assertRaises(ValueError) as err:
