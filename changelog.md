@@ -2,6 +2,8 @@
 
 **pycite 0.1.2**
 
+* Fixed issues with misplaced "&" in citations. See [#8](https://github.com/Nelson-Gon/pycite/issues/8).
+
 * Fixed issues with mix up of science direct volumes, years, pages. See [#7](https://github.com/Nelson-Gon/pycite/issues/7). 
 
 * Initial support for Science Direct papers. See [#6](https://github.com/Nelson-Gon/pycite/issues/6).  

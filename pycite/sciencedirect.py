@@ -36,7 +36,8 @@ def sd_authors(bs4_object):
     assert len(surnames) == len(given_joined), "Unequal lengths of surname and given name lists."
     authors_list = list(map(lambda x, y: x + " " + y, surnames, given_joined))
     # TODO: Make last appear with &
-    ##authors_list[len(authors_list) - 1] = "& " + authors_list[len(authors_list) - 1]
+    if len(authors_list) > 1:
+        authors_list[-1] = "& " + authors_list[-1]
     return ",".join(authors_list)
 
 def sd_vol_year_pages(bs4_object, target={"class": "text-xs"}):
@@ -54,19 +55,34 @@ def sd_vol_year_pages(bs4_object, target={"class": "text-xs"}):
     return vol_year_pages_split
 
 def sd_volume(bs4_object):
+    """
+
+    :param bs4_object: An object of class BeautifulSoup
+    :return: Volume of the journal
+    """
     # Volume: Remove the word Volume
     volume = re.sub("\D", "", sd_vol_year_pages(bs4_object)[0])
     return volume
 
 def sd_year(bs4_object):
+    """
+
+    :param bs4_object: An object of class BeautifulSoup
+    :return: Year of publication.
+    """
     # If DMY, split along a space, whatever comes last is the year
     # TODO: Assert that year lengths is 2
-   if len(sd_vol_year_pages(bs4_object)) == 4:
+    if len(sd_vol_year_pages(bs4_object)) == 4:
         return  sd_vol_year_pages(bs4_object)[2].split()[-1]
-   else:
+    else:
         return sd_vol_year_pages(bs4_object)[1].split()[-1]
 
 def sd_issue(bs4_object):
+    """
+
+    :param bs4_object: An object of class BeautifulSoup
+    :return: Issue of volume, if it exists.
+    """
     # if issue exists, it should come second i.e. at index 1
     if len(sd_vol_year_pages(bs4_object)) == 3:
         return ","
@@ -74,6 +90,12 @@ def sd_issue(bs4_object):
         return "(" + re.sub("\D","",sd_vol_year_pages(bs4_object)[1]) + "), "
 
 def sd_pages(bs4_object):
+    """
+
+    :param bs4_object: An object of class BeautifulSoup
+    :return: Page numbers.
+    """
+
     return re.sub(" Pages ", "", sd_vol_year_pages(bs4_object)[-1])
 
 

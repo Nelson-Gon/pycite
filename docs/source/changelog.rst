@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Fixed issues with misplaced "&" in citations. See `#8 <https://github.com/Nelson-Gon/pycite/issues/8>`_.
+
+* 
   Fixed issues with mix up of science direct volumes, years, pages. See `#7 <https://github.com/Nelson-Gon/pycite/issues/7>`_. 
 
 * 
