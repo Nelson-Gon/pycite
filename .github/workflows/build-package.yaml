@@ -40,5 +40,5 @@ jobs:
       run: python -m pycite -i testfiles/testlinks.txt -o testfiles/citations.txt
 
     - name: Run script to build docs
-      run: bash scripts/mkdocs.dh
+      run: bash scripts/mkdocs.sh
 
