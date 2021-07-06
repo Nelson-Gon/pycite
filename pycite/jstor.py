@@ -16,3 +16,7 @@ def jstor_authors(bs4_object):
 
     return first_last
 
+def jstor_title(bs4_object):
+    return remove_newlines(bs4_object.find_all("pharos-heading")[0].text)
+
+
