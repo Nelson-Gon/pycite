@@ -34,6 +34,8 @@
 
 - [x] ScienceDirect 
 
+- [ ] JSTOR
+
 **Supported file formats**
 
 `pycite` generates citations given a file of the following types:
