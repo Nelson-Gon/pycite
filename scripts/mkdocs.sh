@@ -16,7 +16,7 @@ if [ ! -f docs/source/modules.rst ]
 
     fi;
 
-python_path=$(which python3 || which python)
+python_path=$(which python || which python3)
 
 $python_path -m m2r README.md changelog.md .github/CONTRIBUTING.md --overwrite
 mv .github/CONTRIBUTING.rst README.rst changelog.rst docs/source
