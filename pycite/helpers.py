@@ -31,3 +31,4 @@ def split_authors(authors_list):
     if len(final_authors) > 1:
         final_authors[-1] = "& " + final_authors[-1]
     return final_authors
+

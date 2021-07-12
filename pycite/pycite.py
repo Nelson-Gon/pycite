@@ -1,7 +1,7 @@
 import bs4
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError, URLError
-from . import ncbi, pubmed, sciencedirect
+from . import ncbi, pubmed, sciencedirect, jstor
 import re
 import os
 
@@ -80,6 +80,12 @@ class PyCite(object):
                         out_file.write(f"{sciencedirect.sd_final_citation(bs4_link)}\n")
                         final_citations.append(sciencedirect.sd_final_citation(bs4_link))
                         continue
+                    if "jstor" in line:
+                        print(f"{line} in {in_file.name} is a JSTOR link, using jstor methods")
+                        out_file.write(f"{jstor.jstor_citation(bs4_link)}\n")
+                        final_citations.append(jstor.jstor_citation(bs4_link))
+                        continue
+
 
 
         return final_citations
