@@ -98,7 +98,7 @@ pycite: Python Citations Generator
   [x] ScienceDirect 
 
 * 
-  [ ] JSTOR
+  [x] JSTOR
 
 **Supported file formats**
 

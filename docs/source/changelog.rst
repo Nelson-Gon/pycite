@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Now supporting JSTOR as a paper source. See `#15 <https://github.com/Nelson-Gon/pycite/issues/15>`_.
+
+* 
   Fixed issues with misplaced "&" in citations. See `#8 <https://github.com/Nelson-Gon/pycite/issues/8>`_.
 
 * 
