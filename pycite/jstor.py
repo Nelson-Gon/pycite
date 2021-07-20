@@ -9,7 +9,7 @@ from .helpers import remove_newlines, split_authors
 def jstor_authors(bs4_object):
     authors = remove_newlines(bs4_object.find_all("div", {"class": "author-font"})[0].text)
     authors = re.sub(" and ", ",", authors)
-    return " ".join(split_authors(authors))
+    return  " ".join(split_authors(authors)) if "," in authors else authors
 
 
 

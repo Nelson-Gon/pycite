@@ -2,7 +2,8 @@
 
 **pycite 0.1.2**
 
-
+* Fixed issues with single JSTOR authors being truncated. See [#15](https://github.com/Nelson-Gon/pycite/issues/15).
+  
 * Now supporting JSTOR as a paper source. See [#15](https://github.com/Nelson-Gon/pycite/issues/15).
 
 * Fixed issues with misplaced "&" in citations. See [#8](https://github.com/Nelson-Gon/pycite/issues/8).
