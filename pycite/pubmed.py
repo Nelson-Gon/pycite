@@ -93,8 +93,8 @@ def pubmed_final_citation(bs4_object, show_doi=False):
     # For some reason, year is returned as a tuple with dupes so
     # Need to get the year "twice" here again
     year = yrs_vols_pages[0]
-    final_citation = (pubmed_authors(bs4_object) + " " + pubmed_title(bs4_object) + " (" +
-                      year + ") " + pubmed_journal(bs4_object))
+    final_citation = (pubmed_authors(bs4_object) +  " (" +
+                      year + ") " + " " + pubmed_title(bs4_object)  + " " + pubmed_journal(bs4_object))
     if len(yrs_vols_pages) == 4:
         final_citation = final_citation + ", " + yrs_vols_pages[2] + ", " + yrs_vols_pages[3]
     if show_doi:

@@ -2,6 +2,8 @@
 
 **pycite 0.1.2**
 
+* Fixed issues with titles appearing before years in citations. 
+
 * Fixed issues with single JSTOR authors being truncated. See [#15](https://github.com/Nelson-Gon/pycite/issues/15).
   
 * Now supporting JSTOR as a paper source. See [#15](https://github.com/Nelson-Gon/pycite/issues/15).

@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Fixed issues with titles appearing before years in citations. 
+
+* 
   Fixed issues with single JSTOR authors being truncated. See `#15 <https://github.com/Nelson-Gon/pycite/issues/15>`_.
 
 * 

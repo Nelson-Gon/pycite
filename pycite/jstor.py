@@ -34,9 +34,10 @@ def jstor_year(bs4_object):
     return year
 
 def jstor_citation(bs4_object):
-    combined_citation = (jstor_authors(bs4_object) + " " + jstor_title(bs4_object)
-                         + " (" + jstor_year(bs4_object)
-                         + ") " + jstor_journal(bs4_object) + ", " +
+    combined_citation = (jstor_authors(bs4_object) + " (" + jstor_year(bs4_object)
+                         + ") " +
+                         " " + jstor_title(bs4_object)
+                         + jstor_journal(bs4_object) + ", " +
                          jstor_volume_issue_page(bs4_object))
     return combined_citation
 

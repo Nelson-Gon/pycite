@@ -60,9 +60,10 @@ def ncbi_final_citation(bs4_object):
     # Authors (Year) Title, journal, Volume, pages
     # TODO: Make italics
     # TODO: Add DOIs in NCBI
-    combined_citation = (ncbi_authors(bs4_object) + " " + ncbi_title(bs4_object)
+    combined_citation = (ncbi_authors(bs4_object)
                              + " (" + ncbi_journal_volume_year(bs4_object)[2]
-                             + ") " + ncbi_journal_volume_year(bs4_object)[0]
+                             + ") " +  " " + ncbi_title(bs4_object)
+                             + " " + ncbi_journal_volume_year(bs4_object)[0]
                              + ", " + ncbi_journal_volume_year(bs4_object)[1]
                              + ", " + ncbi_page_numbers(bs4_object))
     return combined_citation
