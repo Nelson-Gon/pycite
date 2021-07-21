@@ -56,7 +56,9 @@ class PyCite(object):
             for line in in_file:
                 # Assume that links are inputted as lines in the input file
                 try:
-                    use_agent = {'User-Agent': 'Mozilla/5.0'} if "jstor" in line else {'User-Agent': 'XYZ/3.0'}
+                    use_agent = {'User-Agent':
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, '
+                    'like Gecko) Chrome/91.0.4472.164 Safari/537.36'} if "jstor" in line else {'User-Agent': 'XYZ/3.0'}
                     paper_link = urlopen(Request(line, headers=use_agent))
                 except HTTPError as err:
                     raise ValueError(f"{line} not reachable, code: {str(err.code)}")
