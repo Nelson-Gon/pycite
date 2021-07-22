@@ -59,7 +59,8 @@ class PyCite(object):
                     # Running curl works but not requests, no idea why
                     # curl -I "https://www.jstor.org/stable/26469531" --user-agent "Mozilla/5.0"
                     use_agent = {'User-Agent': 'Mozilla/5.0'} if "jstor" in line else {'User-Agent': 'XYZ/3.0'}
-                    paper_link = urlopen(Request(line, headers=use_agent))
+                    paper_link = urlopen(Request(line, headers=use_agent), timeout = 10)
+                    print(paper_link.headers)
                 except HTTPError as err:
                     raise ValueError(f"{line} not reachable, code: {str(err.code)}")
                 except URLError as err:
