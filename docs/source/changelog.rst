@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Refactored code that selects relevant methods to follow the DRY principle. 
+
+* 
   Fixed issues with titles appearing before years in citations. 
 
 * 

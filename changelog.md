@@ -2,6 +2,8 @@
 
 **pycite 0.1.2**
 
+* Refactored code that selects relevant methods to follow the DRY principle. 
+
 * Fixed issues with titles appearing before years in citations. 
 
 * Fixed issues with single JSTOR authors being truncated. See [#15](https://github.com/Nelson-Gon/pycite/issues/15).

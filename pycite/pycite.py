@@ -6,7 +6,22 @@ import re
 import os
 
 
-
+def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwargs):
+    # Write a dict to get the relevant method, do this only once.
+    # This avoids writing several nested if statements and is probably easier to debug/refactor
+    methods = {"pubmed": pubmed.pubmed_final_citation,
+               "ncbi": ncbi.ncbi_final_citation,
+               "sciencedirect": sciencedirect.sd_final_citation,
+               "jstor": jstor.jstor_citation}
+    use_method = re.findall("pubmed|ncbi|jstor|sciencedirect", input_line)[0]
+    actual_method = methods[use_method](bs4_link, **kwargs) if use_method=="pubmed" else methods[use_method](bs4_link)
+    # Only get a method if it exists
+    # if not use_method:
+    #  warn (f"No suitable method found for {input_line},skipping....")
+    if use_method in input_line:
+        print(f"{input_line} in {input_file.name} is a(n) {use_method} link, using {use_method} methods")
+        output_file.write(f"{actual_method}\n")
+        cit_list.append(actual_method)
 
 
 class PyCite(object):
@@ -20,6 +35,8 @@ class PyCite(object):
         self.input_file = input_file
         self.output_file = output_file
         self.show_doi = show_doi
+
+
 
 
 
@@ -49,7 +66,6 @@ class PyCite(object):
 
 
 
-
     def cite(self):
         final_citations = []
         with open(self.input_file, "r") as in_file, open(self.output_file, "w") as out_file:
@@ -59,8 +75,9 @@ class PyCite(object):
                     # Running curl works but not requests, no idea why
                     # curl -I "https://www.jstor.org/stable/26469531" --user-agent "Mozilla/5.0"
                     use_agent = {'User-Agent': 'Mozilla/5.0'} if "jstor" in line else {'User-Agent': 'XYZ/3.0'}
-                    paper_link = urlopen(Request(line, headers=use_agent), timeout = 10)
-                    print(paper_link.headers)
+                    paper_link = urlopen(Request(line, headers=use_agent))
+                    # print(paper_link.headers)
+                    # TODO: Jstor citations work locally but not remote, temporarily disabling jstor tests.
                 except HTTPError as err:
                     raise ValueError(f"{line} not reachable, code: {str(err.code)}")
                 except URLError as err:
@@ -68,27 +85,8 @@ class PyCite(object):
                 else:
                     # Convert to a BS4 object
                     bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
-                    if "pubmed" in line:
-                        print(f"{line} in {in_file.name} looks like a pubmed link, using pubmed methods...")
-                        out_file.write(f"{pubmed.pubmed_final_citation(bs4_link,show_doi=self.show_doi)}\n")
-                        final_citations.append(pubmed.pubmed_final_citation(bs4_link,show_doi=self.show_doi))
-                        continue
-                    if "ncbi" in line:
-                        print(f"{line} in {in_file.name} looks like NCBI to me...")
-                        out_file.write(f"{ncbi.ncbi_final_citation(bs4_link)}\n")
-                        final_citations.append(ncbi.ncbi_final_citation(bs4_link))
-                        continue
-                        # TODO: Avoid repetition, use a single method to call the relevant methods e.g. a dict?
-                    if "sciencedirect" in line:
-                        print(f"{line} in {in_file.name} looks like Science Direct to me...")
-                        out_file.write(f"{sciencedirect.sd_final_citation(bs4_link)}\n")
-                        final_citations.append(sciencedirect.sd_final_citation(bs4_link))
-                        continue
-                    if "jstor" in line:
-                        print(f"{line} in {in_file.name} is a JSTOR link, using jstor methods")
-                        out_file.write(f"{jstor.jstor_citation(bs4_link)}\n")
-                        final_citations.append(jstor.jstor_citation(bs4_link))
-                        continue
+                    switch_method(line,in_file,out_file, final_citations, bs4_link, show_doi=self.show_doi)
+                    continue
 
 
 
