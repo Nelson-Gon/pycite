@@ -36,12 +36,6 @@ class PyCite(object):
         self.output_file = output_file
         self.show_doi = show_doi
 
-
-
-
-
-
-
         # Assert file existence
         for _file in [self.input_file, self.output_file]:
             try:
@@ -87,8 +81,6 @@ class PyCite(object):
                     bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
                     switch_method(line,in_file,out_file, final_citations, bs4_link, show_doi=self.show_doi)
                     continue
-
-
 
         return final_citations
 
