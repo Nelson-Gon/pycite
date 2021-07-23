@@ -62,14 +62,11 @@ class TestPyCite(unittest.TestCase):
        #  self.assertTrue("Only pubmed, ncbi, jstor, or sciencedirect links currently supported not" in str(err.exception))
 
     def test_jstor(self):
-        if hasattr(sys, "ps1"):
-            # only run if in interactive mode for now
             test_jstor = PyCite(jstor_only, out_file)
             self.assertTrue(isinstance(test_jstor, PyCite))
-            # Check that we have the expected number of citations
-            citations_jstor = test_jstor.cite()
+
             self.assertEqual(len(citations), 2)
-      
+
 
 
 
