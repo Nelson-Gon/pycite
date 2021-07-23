@@ -6,7 +6,7 @@ Free and always will be.
 """
 
 import unittest
-import os
+import os, sys
 from pycite.pycite import PyCite
 
 # Make paths to tests
@@ -19,6 +19,7 @@ in_file_unsupported = os.path.join(test_dir, "unsupportedlinks.txt")
 non_existing_file = os.path.join(test_dir,"notafile.txt")
 not_txt = os.path.join(test_dir,"nottxt.pdf")
 no_format = os.path.join(test_dir,"nofileformat")
+jstor_only = os.path.join(test_dir, "testjstor.txt")
 
 
 class TestPyCite(unittest.TestCase):
@@ -59,6 +60,18 @@ class TestPyCite(unittest.TestCase):
        #  with self.assertRaises(ValueError) as err:
        #      PyCite(not_supported, not_supported).cite()
        #  self.assertTrue("Only pubmed, ncbi, jstor, or sciencedirect links currently supported not" in str(err.exception))
+
+    def test_jstor(self):
+        if hasattr(sys, "ps1"):
+            # only run if in interactive mode for now
+            test_jstor = PyCite(jstor_only, out_file)
+            self.assertTrue(isinstance(test_jstor, PyCite))
+            # Check that we have the expected number of citations
+            citations_jstor = test_jstor.cite()
+            self.assertEqual(len(citations), 2)
+      
+
+
 
 
 
