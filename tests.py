@@ -29,7 +29,7 @@ class TestPyCite(unittest.TestCase):
         self.assertTrue(isinstance(test_object, PyCite))
         # Check that we have the expected number of citations
         citations = test_object.cite()
-        self.assertEqual(len(citations), 14)
+        self.assertEqual(len(citations), 12)
         print(citations)
         # Check that we can raise exceptions whenever necessary
         # with self.assertRaises(ValueError) as err:
@@ -55,7 +55,15 @@ class TestPyCite(unittest.TestCase):
             no_file_format = PyCite(no_format, no_format)
         self.assertTrue("No file format was detected" in str(err.exception))
 
+       # # If a file contains non supported paper sources, check that these are caught
+       #  with self.assertRaises(ValueError) as err:
+       #      PyCite(not_supported, not_supported).cite()
+       #  self.assertTrue("Only pubmed, ncbi, jstor, or sciencedirect links currently supported not" in str(err.exception))
+
+
 
 
 if __name__ == "__main__":
     unittest.main()
+
+

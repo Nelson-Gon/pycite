@@ -6,6 +6,9 @@ import re
 import os
 
 
+def match_source(input_line):
+    return re.findall("pubmed|ncbi|jstor|sciencedirect", input_line)
+
 def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwargs):
     # Write a dict to get the relevant method, do this only once.
     # This avoids writing several nested if statements and is probably easier to debug/refactor
@@ -13,15 +16,21 @@ def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwa
                "ncbi": ncbi.ncbi_final_citation,
                "sciencedirect": sciencedirect.sd_final_citation,
                "jstor": jstor.jstor_citation}
-    use_method = re.findall("pubmed|ncbi|jstor|sciencedirect", input_line)[0]
+
+    use_method = match_source(input_line)[0]
+
+
+    # The above should throw an index error but for whatever reason it does not with []
     actual_method = methods[use_method](bs4_link, **kwargs) if use_method=="pubmed" else methods[use_method](bs4_link)
     # Only get a method if it exists
     # if not use_method:
     #  warn (f"No suitable method found for {input_line},skipping....")
-    if use_method in input_line:
+    if use_method in methods.keys():
         print(f"{input_line} in {input_file.name} is a(n) {use_method} link, using {use_method} methods")
         output_file.write(f"{actual_method}\n")
         cit_list.append(actual_method)
+
+
 
 
 class PyCite(object):
@@ -38,6 +47,7 @@ class PyCite(object):
 
         # Assert file existence
         for _file in [self.input_file, self.output_file]:
+
             try:
                 assert os.path.isfile(_file), f"{_file} does not exist"
             except AssertionError:
@@ -65,6 +75,7 @@ class PyCite(object):
         with open(self.input_file, "r") as in_file, open(self.output_file, "w") as out_file:
             for line in in_file:
                 # Assume that links are inputted as lines in the input file
+
                 try:
                     # Running curl works but not requests, no idea why
                     # curl -I "https://www.jstor.org/stable/26469531" --user-agent "Mozilla/5.0"
@@ -72,6 +83,7 @@ class PyCite(object):
                     paper_link = urlopen(Request(line, headers=use_agent))
                     # print(paper_link.headers)
                     # TODO: Jstor citations work locally but not remote, temporarily disabling jstor tests.
+                    match_source(line)[0]
                 except HTTPError as err:
                     raise ValueError(f"{line} not reachable, code: {str(err.code)}")
                 except URLError as err:
