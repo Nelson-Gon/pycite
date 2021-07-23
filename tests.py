@@ -64,8 +64,7 @@ class TestPyCite(unittest.TestCase):
     def test_jstor(self):
             test_jstor = PyCite(jstor_only, out_file)
             self.assertTrue(isinstance(test_jstor, PyCite))
-
-            self.assertEqual(len(citations), 2)
+            self.assertEqual(len(test_jstor.cite()), 2)
 
 
 
