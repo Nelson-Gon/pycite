@@ -41,4 +41,3 @@ jobs:
 
     - name: Run script to build docs
       run: bash scripts/mkdocs.sh
-

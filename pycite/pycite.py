@@ -1,3 +1,5 @@
+import sys
+
 import bs4
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError, URLError
