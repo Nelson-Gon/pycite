@@ -1,6 +1,6 @@
-Pohorille A, Wilson MA, & Shannon G (2017)  Flexible Proteins at the Origin of Life Life (Basel), 7(2),  23. 
-Tiessen A, Pérez-Rodríguez P, & Delaye-Arredondo LJ (2012)  Mathematical modeling and comparison of protein size distribution in different plant, animal, fungal and microbial species reveals a negative correlation between protein size and protein number, thus providing insight into the evolution of proteomes BMC Res Notes, 5,  85. 
-Romero-Romero S, Martínez-Delgado aG, & Ballezac bD (2019)  Voltage vs. Ligand II: Structural insights of the intrinsic flexibility in cyclic nucleotide-gated channels Channels (Austin), 13(1),  382–399. 
+Andrew P, Michael AW, & Gareth S (2017)  Flexible Proteins at the Origin of Life Life (Basel), 7(2),  23. 
+Axel T, Paulino P, & Luis JD (2012)  Mathematical modeling and comparison of protein size distribution in different plant, animal, fungal and microbial species reveals a negative correlation between protein size and protein number, thus providing insight into the evolution of proteomes BMC Res Notes, 5,  85. 
+Sergio R, a GM, & b DB (2019)  Voltage vs. Ligand II: Structural insights of the intrinsic flexibility in cyclic nucleotide-gated channels Channels (Austin), 13(1),  382–399. 
 Dunker AK, Silman I, Uversky VN, & Sussman JL (2008)  Function and structure of inherently disordered proteins Curr Opin Struct Biol, 18(6), 756-64
 Romero PR, Zaidi S, Fang YY, Uversky VN, Radivojac P, Oldfield CJ, Cortese MS, Sickmeier M, LeGall T, Obradovic Z, & Dunker AK (2006)  Alternative splicing in concert with protein intrinsic disorder enables increased functional diversity in multicellular organisms Proc Natl Acad Sci U S A, 103(22), 8390-5
 Khan F, Tritschler T, Kahn SR, & Rodger MA (2021)  Venous thromboembolism Lancet, 398(10294), 64-77

@@ -23,7 +23,7 @@ def ncbi_journal_volume_year(bs4_object):
     # index to remove the "v" from volumes
     volume = vol_yr_split[0][2:]
     # year
-    year = re.sub(r"\D", "", vol_yr_split[1])
+    year = re.sub("\\D", "", vol_yr_split[1])
     return journal, volume, year
 
 
@@ -40,17 +40,17 @@ def ncbi_authors(bs4_object):
     # Find the authors tag
     authors = bs4_object.find_all("div", {'class': 'contrib-group fm-author'})[0].text
     # Sanitize authors list
-    authors_list = re.sub(r"[\d*]", "", authors)
+    authors_list = re.sub("[\\d*]", "", authors)
     authors_cleaner = re.sub(",(?=,)|,$", "", authors_list)
     # Split authors list
     authors_split = re.split(",", authors_cleaner)
     # Reverse author names, last first first last
-    authors_split_clean = [re.sub(r"\sand\s", "",
-                                  re.sub(r"(.*)(\s)(.*)", "\\3\\2\\1", x)) for x in authors_split]
+    authors_split_clean = [re.sub("\\sand\\s", "",
+                                  re.sub(r"(.*)(\\s)(.*)", "\\3\\2\\1", x)) for x in authors_split]
 
     # Merge these for now
-    authors_split_clean[-1] = re.sub(r"(\w.*)", "& \\1", authors_split_clean[-1])
-    authors_split_clean[0] = re.sub(r"(\w.*)", "\\1 ", authors_split_clean[0])
+    authors_split_clean[-1] = re.sub("(\\w.*)", "& \\1", authors_split_clean[-1])
+    authors_split_clean[0] = re.sub("(\\w.*)", "\\1 ", authors_split_clean[0])
     authors_final = ",".join(authors_split_clean)
     # Clean authors further
     # TODO: This adds unnecessary steps, need to reduce this

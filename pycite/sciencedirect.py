@@ -65,7 +65,7 @@ def sd_volume(bs4_object):
     :return: Volume of the journal
     """
     # Volume: Remove the word Volume
-    volume = re.sub(r"\D", "", sd_vol_year_pages(bs4_object)[0])
+    volume = re.sub("\\D", "", sd_vol_year_pages(bs4_object)[0])
     return volume
 
 
@@ -93,7 +93,7 @@ def sd_issue(bs4_object):
     if len(sd_vol_year_pages(bs4_object)) == 3:
         return ","
     else:
-        return "(" + re.sub(r"\D", "", sd_vol_year_pages(bs4_object)[1]) + "), "
+        return "(" + re.sub("\\D", "", sd_vol_year_pages(bs4_object)[1]) + "), "
 
 
 def sd_pages(bs4_object):

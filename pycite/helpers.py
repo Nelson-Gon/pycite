@@ -9,7 +9,7 @@ def remove_newlines(in_str):
     :return: A cleaner string
     """
 
-    return re.sub(r"\\n|\\s{2,}", "", in_str)
+    return re.sub("\\n|\\s{2,}", "", in_str)
 
 
 def split_authors(authors_list):
