@@ -108,34 +108,42 @@ python -m pycite --help
 
 First, one needs to create an object of class `PyCite`
 
-```python
+```shell
 from pycite.pycite import PyCite
 ```
 
-```python
+```shell
 # Need an input-output file pair 
 my_citations = PyCite(input_file="testfiles/testlinks.txt", output_file="testfiles/citations.txt")
 ```
 
 To generate citations, one simply calls the `cite` method.
 
-```python
+```shell
 # This will write citations in the provided output file 
 my_citations.cite()
 ```
 
-The above gives us (only the first line is shown here). 
+The above creates citations as required (only the first line shown here). 
 See [citations.txt](https://github.com/Nelson-Gon/pycite/blob/main/testfiles/citations.txt) for the full file.
 
 ```shell
 Pohorille A, Wilson MA, & Shannon G (2017)  Flexible Proteins at the Origin of Life Life (Basel), 7(2),  23. 
 ```
 
-# Notes
+---
 
-This software is provided freely. If you have any concerns, please contact the author. Specifically, the papers
-used to test that the software works have been randomly chosen. In the event that you notice that any of those papers 
-has been retracted, please immediately inform the author to remove that paper from the tests. 
+**Note**
+
+`pycite` is free software that the author hopes could be of use to someone else and enable them to perform reproducible
+science. 
+
+If you have any concerns, especially regarding the papers used to test that the software works, 
+please [contact](https://nelson-gon.github.io/social) the author. In the event that you notice the papers included in 
+the tests any of those papers has been retracted, please immediately inform the author to remove that paper from the 
+tests. 
+
+Thank you, 
 
 **For Science!**
 

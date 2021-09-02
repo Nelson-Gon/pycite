@@ -2,6 +2,16 @@
 pycite's changelog
 ==================
 
+**pycite 0.1.3**
+
+
+* 
+  Optimised imports, refactored to ensure that default arguments are immutable. RegEx matching now uses string literals 
+  as per PEP requirements.
+
+* 
+  Updated documentation to include the author's contact details, if needed.   
+
 **pycite 0.1.2**
 
 
@@ -62,7 +72,7 @@ pycite's changelog
   Fixed issues with incorrect author formatting for NCBI and Pubmed articles
 
 * 
-  Initial support for Pubmed citations i.e. links in the form https://pubmed.ncbi.nlm.nih.gov/ 
+  Initial support for Pubmed citations i.e., links in the form https://pubmed.ncbi.nlm.nih.gov/ 
 
 * 
   Explicitly set an HTML parser 

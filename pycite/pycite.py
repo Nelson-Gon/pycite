@@ -1,15 +1,16 @@
-import sys
+import os
+import re
+from urllib.error import HTTPError, URLError
+from urllib.request import urlopen, Request
 
 import bs4
-from urllib.request import urlopen, Request
-from urllib.error import HTTPError, URLError
+
 from . import ncbi, pubmed, sciencedirect, jstor
-import re
-import os
 
 
 def match_source(input_line):
     return re.findall("pubmed|ncbi|jstor|sciencedirect", input_line)
+
 
 def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwargs):
     # Write a dict to get the relevant method, do this only once.
@@ -21,9 +22,8 @@ def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwa
 
     use_method = match_source(input_line)[0]
 
-
     # The above should throw an index error but for whatever reason it does not with []
-    actual_method = methods[use_method](bs4_link, **kwargs) if use_method=="pubmed" else methods[use_method](bs4_link)
+    actual_method = methods[use_method](bs4_link, **kwargs) if use_method == "pubmed" else methods[use_method](bs4_link)
     # Only get a method if it exists
     # if not use_method:
     #  warn (f"No suitable method found for {input_line},skipping....")
@@ -31,8 +31,6 @@ def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwa
         print(f"{input_line} in {input_file.name} is a(n) {use_method} link, using {use_method} methods")
         output_file.write(f"{actual_method}\n")
         cit_list.append(actual_method)
-
-
 
 
 class PyCite(object):
@@ -70,8 +68,6 @@ class PyCite(object):
                 else:
                     raise ValueError(f"No file format was detected in {_file}, exiting...")
 
-
-
     def cite(self):
         final_citations = []
         with open(self.input_file, "r") as in_file, open(self.output_file, "w") as out_file:
@@ -85,7 +81,7 @@ class PyCite(object):
                     paper_link = urlopen(Request(line, headers=use_agent))
                     # print(paper_link.headers)
                     # TODO: Jstor citations work locally but not remote, temporarily disabling jstor tests.
-                    match_source(line)[0]
+                    # match_source(line)[0]
                 except HTTPError as err:
                     raise ValueError(f"{line} not reachable, code: {str(err.code)}")
                 except URLError as err:
@@ -93,9 +89,7 @@ class PyCite(object):
                 else:
                     # Convert to a BS4 object
                     bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
-                    switch_method(line,in_file,out_file, final_citations, bs4_link, show_doi=self.show_doi)
+                    switch_method(line, in_file, out_file, final_citations, bs4_link, show_doi=self.show_doi)
                     continue
 
         return final_citations
-
-

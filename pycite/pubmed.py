@@ -6,6 +6,7 @@ Free Open Source Software, free and always will be.
 from .helpers import split_authors, remove_newlines
 import re
 
+
 def pubmed_authors(bs4_object, target_class="full-name"):
     """
     :param bs4_object: An object of class Beautiful Soup
@@ -28,9 +29,6 @@ def pubmed_authors(bs4_object, target_class="full-name"):
     authors_list = split_authors(', '.join(authors_list))
     authors = ', '.join(name for name in authors_list)
     return authors
-
-
-
 
 
 def pubmed_title(bs4_object):
@@ -64,7 +62,7 @@ def pubmed_year_volume_pages(bs4_object, show_doi=False):
     # This finds volumes and page numbers if they exist
     # For example in https://pubmed.ncbi.nlm.nih.gov/18952168/
     # Volumes and page numbers exist as 18(6):756-64.
-    vols_pg_nos = list(filter(None,[re.findall("\\d+\\(.*\\):\\d+-\\d+", x) for x in dates_vol_pages]))
+    vols_pg_nos = list(filter(None, [re.findall("\\d+\\(.*\\):\\d+-\\d+", x) for x in dates_vol_pages]))
     volume = None
     page_numbers = None
     if vols_pg_nos:
@@ -78,7 +76,7 @@ def pubmed_year_volume_pages(bs4_object, show_doi=False):
 
     final_volume_year_page = year, remove_newlines(paper_identity) if show_doi else year
     if volume:
-        final_volume_year_page = final_volume_year_page +  (volume, page_numbers)
+        final_volume_year_page = final_volume_year_page + (volume, page_numbers)
 
     return final_volume_year_page
 
@@ -93,8 +91,8 @@ def pubmed_final_citation(bs4_object, show_doi=False):
     # For some reason, year is returned as a tuple with dupes so
     # Need to get the year "twice" here again
     year = yrs_vols_pages[0]
-    final_citation = (pubmed_authors(bs4_object) +  " (" +
-                      year + ") " + " " + pubmed_title(bs4_object)  + " " + pubmed_journal(bs4_object))
+    final_citation = (pubmed_authors(bs4_object) + " (" +
+                      year + ") " + " " + pubmed_title(bs4_object) + " " + pubmed_journal(bs4_object))
     if len(yrs_vols_pages) == 4:
         final_citation = final_citation + ", " + yrs_vols_pages[2] + ", " + yrs_vols_pages[3]
     if show_doi:

@@ -2,13 +2,15 @@
 # TODO: Keep these only wherever they are needed.
 import re
 
+
 def remove_newlines(in_str):
     """
     :param in_str: Remove new lines and unwanted spaces
     :return: A cleaner string
     """
 
-    return re.sub("\\n|\\s{2,}", "", in_str)
+    return re.sub(r"\\n|\\s{2,}", "", in_str)
+
 
 def split_authors(authors_list):
     """
@@ -31,4 +33,3 @@ def split_authors(authors_list):
     if len(final_authors) > 1:
         final_authors[-1] = "& " + final_authors[-1]
     return final_authors
-

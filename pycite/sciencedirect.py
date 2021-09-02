@@ -1,8 +1,7 @@
-import bs4
 import re
 
 
-def sd_title(bs4_object, target={"class":"title-text"}):
+def sd_title(bs4_object, target=None):
     """
 
     :param bs4_object: An object of class BeautifulSoup
@@ -10,8 +9,9 @@ def sd_title(bs4_object, target={"class":"title-text"}):
     :return: Returns paper title from Science Direct
     """
 
-    return bs4_object.find_all("span",target)[0].text
-
+    if target is None:
+        target = {"class": "title-text"}
+    return bs4_object.find_all("span", target)[0].text
 
 
 def sd_authors(bs4_object):
@@ -40,19 +40,23 @@ def sd_authors(bs4_object):
         authors_list[-1] = "& " + authors_list[-1]
     return ",".join(authors_list)
 
-def sd_vol_year_pages(bs4_object, target={"class": "text-xs"}):
+
+def sd_vol_year_pages(bs4_object, target=None):
     """
 
+    :type target: HTML attribute that holds volumes, years, and pages.
     :param bs4_object: An object of class BeautifulSoup
     :param target: A dict specifying the target HTML tag
     :return: Volume, Year, Pages
     """
-
+    if target is None:
+        target = {"class": "text-xs"}
     vol_year_pages = bs4_object.find_all("div", target)[0].text
     # Volume, issue, date including year d/sm/sy, pages
     # Split along comma
     vol_year_pages_split = vol_year_pages.split(",")
     return vol_year_pages_split
+
 
 def sd_volume(bs4_object):
     """
@@ -61,8 +65,9 @@ def sd_volume(bs4_object):
     :return: Volume of the journal
     """
     # Volume: Remove the word Volume
-    volume = re.sub("\D", "", sd_vol_year_pages(bs4_object)[0])
+    volume = re.sub(r"\D", "", sd_vol_year_pages(bs4_object)[0])
     return volume
+
 
 def sd_year(bs4_object):
     """
@@ -73,9 +78,10 @@ def sd_year(bs4_object):
     # If DMY, split along a space, whatever comes last is the year
     # TODO: Assert that year lengths is 2
     if len(sd_vol_year_pages(bs4_object)) == 4:
-        return  sd_vol_year_pages(bs4_object)[2].split()[-1]
+        return sd_vol_year_pages(bs4_object)[2].split()[-1]
     else:
         return sd_vol_year_pages(bs4_object)[1].split()[-1]
+
 
 def sd_issue(bs4_object):
     """
@@ -87,7 +93,8 @@ def sd_issue(bs4_object):
     if len(sd_vol_year_pages(bs4_object)) == 3:
         return ","
     else:
-        return "(" + re.sub("\D","",sd_vol_year_pages(bs4_object)[1]) + "), "
+        return "(" + re.sub(r"\D", "", sd_vol_year_pages(bs4_object)[1]) + "), "
+
 
 def sd_pages(bs4_object):
     """
@@ -105,7 +112,7 @@ def sd_journal_name(bs4_object):
     :param bs4_object: An object of class BeautifulSoup
     :return: Journal Name
     """
-    return bs4_object.find_all("a", {"class":"publication-title-link"})[0].text
+    return bs4_object.find_all("a", {"class": "publication-title-link"})[0].text
 
 
 def sd_final_citation(bs4_object):
@@ -116,12 +123,5 @@ def sd_final_citation(bs4_object):
     """
     combined = (sd_authors(bs4_object) + " " + "(" + sd_year(bs4_object) + ") "
                 + sd_title(bs4_object) + ". " + sd_journal_name(bs4_object) + ", " + sd_volume(bs4_object)
-                +  sd_issue(bs4_object) + sd_pages(bs4_object))
+                + sd_issue(bs4_object) + sd_pages(bs4_object))
     return combined
-
-
-
-
-
-
-
