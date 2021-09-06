@@ -197,11 +197,9 @@ See `citations.txt <https://github.com/Nelson-Gon/pycite/blob/main/testfiles/cit
 science. 
 
 If you have any concerns, especially regarding the papers used to test that the software works, 
-please `contact <https://nelson-gon.github.io/social>`_ the author. In the event that you notice the papers included in 
-the tests any of those papers has been retracted, please immediately inform the author to remove that paper from the 
-tests. 
+please `contact <https://nelson-gon.github.io/social>`_ the author. In the event that you notice that any of the papers used in the tests has been retracted, please immediately inform the author to remove that paper. 
 
-Thank you, 
+Thank you very much and keep building, 
 
 **For Science!**
 
