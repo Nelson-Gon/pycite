@@ -29,7 +29,8 @@ def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwa
     #  warn (f"No suitable method found for {input_line},skipping....")
     if use_method in methods.keys():
         print(f"{input_line} in {input_file.name} is a(n) {use_method} link, using {use_method} methods")
-        output_file.write(f"{actual_method}\n")
+        # output_file.write(f"{actual_method}\n") We write to the output file in the cite method now
+        # The switch method now only creates a list with all the citations
         cit_list.append(actual_method)
 
 
@@ -91,5 +92,9 @@ class PyCite(object):
                     bs4_link = bs4.BeautifulSoup(paper_link, features="html.parser")
                     switch_method(line, in_file, out_file, final_citations, bs4_link, show_doi=self.show_doi)
                     continue
+            final_citations.sort()  # Sorting the final citations list
 
+            for cit in final_citations:
+                # Writing the sorted citations to the output file.
+                out_file.write(f"{cit}\n")
         return final_citations
