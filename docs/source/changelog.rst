@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Citations are now sorted alphabetically as expected by Harvard citation standards. 
+
+* 
   Optimised imports, refactored to ensure that default arguments are immutable. RegEx matching now uses string literals 
   as per PEP requirements.
 
