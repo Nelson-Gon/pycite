@@ -6,7 +6,13 @@ pycite's changelog
 
 
 * 
-  Citations are now sorted alphabetically as expected by Harvard citation standards. 
+  Fixed issues with NCBI citations not reversing author names. 
+
+* 
+  Citations now include a date accessed attribute. 
+
+* 
+  Citations now alphabetically as expected by Harvard citation standards. 
 
 * 
   Optimised imports, refactored to ensure that default arguments are immutable. RegEx matching now uses string literals 

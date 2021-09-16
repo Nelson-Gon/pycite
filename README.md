@@ -128,7 +128,7 @@ The above creates citations as required (only the first line shown here).
 See [citations.txt](https://github.com/Nelson-Gon/pycite/blob/main/testfiles/citations.txt) for the full file.
 
 ```shell
-Pohorille A, Wilson MA, & Shannon G (2017)  Flexible Proteins at the Origin of Life Life (Basel), 7(2),  23. 
+Pohorille A, Wilson MA, & Shannon G (2017)  Flexible Proteins at the Origin of Life Life (Basel), 7(2),  23.  [Accessed 16/Sep/2021]
 ```
 
 ---

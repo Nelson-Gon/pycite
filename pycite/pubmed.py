@@ -7,6 +7,20 @@ from .helpers import split_authors, remove_newlines
 import re
 
 
+def make_first_last(authors_list, save_to):
+    """
+
+    :param authors_list: A list of authors whose names should be reversed
+    :param save_to: A list to save reversed authors to
+    :return: Authors list reversed
+    """
+    for author in authors_list:
+        author_name = author.split()
+        last_name = [author_name[len(author_name) - 1]]
+        author_name = last_name + author_name[:len(author_name) - 1]
+        save_to.append(' '.join(author_name))
+
+
 def pubmed_authors(bs4_object, target_class="full-name"):
     """
     :param bs4_object: An object of class Beautiful Soup
@@ -20,11 +34,7 @@ def pubmed_authors(bs4_object, target_class="full-name"):
     authors_list = []
 
     # Place last name in the front for each author
-    for author in authors:
-        author_name = author.split()
-        last_name = [author_name[len(author_name) - 1]]
-        author_name = last_name + author_name[:len(author_name) - 1]
-        authors_list.append(' '.join(author_name))
+    make_first_last(authors, authors_list)
 
     authors_list = split_authors(', '.join(authors_list))
     authors = ', '.join(name for name in authors_list)

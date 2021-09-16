@@ -4,7 +4,7 @@ Free Open Source Software, free and always will be.
 """
 import re
 from .helpers import remove_newlines, split_authors
-
+from .pubmed import make_first_last
 
 # Citation methods for NCBI based addresses
 
@@ -45,13 +45,13 @@ def ncbi_authors(bs4_object):
     # Split authors list
     authors_split = re.split(",", authors_cleaner)
     # Reverse author names, last first first last
-    authors_split_clean = [re.sub("\\sand\\s", "",
-                                  re.sub(r"(.*)(\\s)(.*)", "\\3\\2\\1", x)) for x in authors_split]
+    new_authors = []
+    make_first_last(authors_split, new_authors)
 
     # Merge these for now
-    authors_split_clean[-1] = re.sub("(\\w.*)", "& \\1", authors_split_clean[-1])
-    authors_split_clean[0] = re.sub("(\\w.*)", "\\1 ", authors_split_clean[0])
-    authors_final = ",".join(authors_split_clean)
+    new_authors[-1] = re.sub("(\\w.*)", "& \\1", new_authors[-1])
+    new_authors[0] = re.sub("(\\w.*)", "\\1 ", new_authors[0])
+    authors_final = ",".join(new_authors)
     # Clean authors further
     # TODO: This adds unnecessary steps, need to reduce this
     authors_final = ", ".join(split_authors(authors_final))
@@ -70,3 +70,4 @@ def ncbi_final_citation(bs4_object):
                          + ", " + ncbi_journal_volume_year(bs4_object)[1]
                          + ", " + ncbi_page_numbers(bs4_object))
     return combined_citation
+
