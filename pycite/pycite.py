@@ -6,6 +6,10 @@ from urllib.request import urlopen, Request
 import bs4
 
 from . import ncbi, pubmed, sciencedirect, jstor
+import time
+
+# Use as access date (can be manually changed)
+date_today = time.strftime("%d/%b/%Y")
 
 
 def match_source(input_line):
@@ -31,7 +35,8 @@ def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwa
         print(f"{input_line} in {input_file.name} is a(n) {use_method} link, using {use_method} methods")
         # output_file.write(f"{actual_method}\n") We write to the output file in the cite method now
         # The switch method now only creates a list with all the citations
-        cit_list.append(actual_method)
+        # Add date accessed
+        cit_list.append(actual_method + " [Accessed " + date_today + "]")
 
 
 class PyCite(object):
