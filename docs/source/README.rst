@@ -28,11 +28,6 @@ pycite: Python Citations Generator
    :alt: Test-Package
 
 
-.. image:: https://www.travis-ci.com/Nelson-Gon/pycite.svg?branch=main
-   :target: https://www.travis-ci.com/Nelson-Gon/pycite
-   :alt: Build Status
-
-
 .. image:: https://img.shields.io/pypi/l/pycite.svg
    :target: https://pypi.python.org/pypi/pycite/
    :alt: PyPI license
