@@ -30,19 +30,11 @@ jobs:
     - name: Install package
       run: python3 setup.py install
 
-    - name: Run tests and show coverage on the command line
-      run: coverage run tests.py && coverage report -m
-
-    - name: cache coverage report
-      uses: actions/upload-artifact@v2
-      with:
-        name: Generated report
-        path: /home/runner/work/pycite/.coverage
-
     - name: Upload reports to codecov
       env:
         CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
       run: |
+       coverage run tests.py && coverage report -m  
        curl -Os https://uploader.codecov.io/latest/linux/codecov
        chmod +x codecov
        ./codecov -t ${CODECOV_TOKEN} -R /home/runner/work/pycite -f ".coverage"
@@ -50,5 +42,3 @@ jobs:
     - name: Test Script Mode
       run: python -m pycite -i testfiles/testlinks.txt -o testfiles/citations.txt
 
-    - name: Run script to build docs
-      run: bash scripts/mkdocs.sh
