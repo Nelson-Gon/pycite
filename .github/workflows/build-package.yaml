@@ -34,10 +34,10 @@ jobs:
       env:
         CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
       run: |
-       coverage run tests.py && coverage report -m  
+       coverage run tests.py && coverage report -m && coverage xml 
        curl -Os https://uploader.codecov.io/latest/linux/codecov
        chmod +x codecov
-       ./codecov -t ${CODECOV_TOKEN} -R /home/runner/work/pycite -f ".coverage"
+       ./codecov -t ${CODECOV_TOKEN} -R /home/runner/work/pycite -f "coverage.xml"
 
     - name: Test Script Mode
       run: python -m pycite -i testfiles/testlinks.txt -o testfiles/citations.txt
