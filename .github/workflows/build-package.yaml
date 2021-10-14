@@ -33,6 +33,12 @@ jobs:
     - name: Run tests and show coverage on the command line
       run: coverage run tests.py && coverage report -m
 
+    - name: cache coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: Generated report
+        path: /home/runner/work/pycite/.coverage
+
     - name: Upload reports to codecov
       env:
         CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
