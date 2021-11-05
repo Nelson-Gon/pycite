@@ -93,7 +93,7 @@ pycite: Python Citations Generator
   [x] ScienceDirect 
 
 * 
-  [x] JSTOR
+  [ ] JSTOR (\ **Support dropped on 5th November 2021** Why? Uses dynamic JS that we do not want to work with for now.)
 
 **Supported file formats**
 

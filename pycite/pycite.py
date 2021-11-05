@@ -5,7 +5,7 @@ from urllib.request import urlopen, Request
 
 import bs4
 
-from . import ncbi, pubmed, sciencedirect, jstor
+from . import ncbi, pubmed, sciencedirect
 import time
 
 # Use as access date (can be manually changed)
@@ -21,8 +21,8 @@ def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwa
     # This avoids writing several nested if statements and is probably easier to debug/refactor
     methods = {"pubmed": pubmed.pubmed_final_citation,
                "ncbi": ncbi.ncbi_final_citation,
-               "sciencedirect": sciencedirect.sd_final_citation,
-               "jstor": jstor.jstor_citation}
+               "sciencedirect": sciencedirect.sd_final_citation}
+            #    "jstor": jstor.jstor_citation}
 
     use_method = match_source(input_line)[0]
 

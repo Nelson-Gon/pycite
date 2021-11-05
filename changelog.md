@@ -2,6 +2,8 @@
 
 **pycite 0.1.3**
 
+* JSTOR citations are no longer supported. 
+
 * Fixed issues with NCBI citations not reversing author names. 
 
 * Citations now include a date accessed attribute. 

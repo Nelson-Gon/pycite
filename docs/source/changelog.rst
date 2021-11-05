@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  JSTOR citations are no longer supported. 
+
+* 
   Fixed issues with NCBI citations not reversing author names. 
 
 * 
