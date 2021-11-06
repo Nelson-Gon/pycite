@@ -9,24 +9,25 @@ import unittest
 import os, sys
 # from pycite.jstor import jstor_authors
 from pycite.pycite import PyCite
+from shutil import copytree, rmtree
+import tempfile 
 
 # Make paths to tests
 
 test_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testfiles")
 out_file = out_file = os.path.join(test_dir, "citations.txt")
 
+# Create temporary directory to use for tests (?) 
+# This is memory and time intensive but ensures that we avoid overwriting testfiles 
+# tempfile.TemporaryDirectory fails for whatever reason
+# print("Creating a temporary test directory") 
+# copytree(test_dir, os.path.join(test_dir , "temp"))
+# test_dir_temp = os.path.join(test_dir, "temp")
+
+
 def create_test_object(in_file, out_f=out_file, **kwargs):
     return PyCite(input_file=os.path.join(test_dir,in_file), output_file=out_f, **kwargs)
 
-
-
-in_file = os.path.join(test_dir, "testlinks.txt")
-
-in_file_unsupported = os.path.join(test_dir, "unsupportedlinks.txt")
-non_existing_file = os.path.join(test_dir,"notafile.txt")
-not_txt = os.path.join(test_dir,"nottxt.pdf")
-no_format = os.path.join(test_dir,"nofileformat")
-jstor_only = os.path.join(test_dir, "testjstor.txt")
 
 
 class TestPyCite(unittest.TestCase):
@@ -66,3 +67,5 @@ class TestPyCite(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+  
+
