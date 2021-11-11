@@ -15,7 +15,11 @@ import tempfile
 # Make paths to tests
 
 test_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testfiles")
-out_file = out_file = os.path.join(test_dir, "citations.txt")
+# Create a temporary test file for citations 
+out_file_temp = tempfile.NamedTemporaryFile(suffix=".txt", delete=False)
+out_file = out_file_temp.name 
+# Would be better if we could specify the temporary file's directory 
+# out_file = out_file = os.path.join(test_dir, "citations.txt")
 
 # Create temporary directory to use for tests (?) 
 # This is memory and time intensive but ensures that we avoid overwriting testfiles 
@@ -48,13 +52,17 @@ class TestPyCite(unittest.TestCase):
 
         # Check that we only have the expected file format, txt for now
         with self.assertRaises(AssertionError) as err:
-            create_test_object(in_file="nottxt.pdf", out_f="citations.txt", show_doi=False)
+            create_test_object(in_file="nottxt.pdf", out_f=out_file, show_doi=False)
         self.assertEqual(str(err.exception), "Only txt files supported for now, not pdf")
 
         # Check that if no file format exists, we raise a ValueError
         with self.assertRaises(ValueError) as err:
-            create_test_object(in_file="nofileformat", out_f="citations.txt", show_doi=False)
+            create_test_object(in_file="nofileformat", out_f=out_file, show_doi=False)
         self.assertTrue("No file format was detected" in str(err.exception))
+
+        # print(f"Removing temporary test file {out_file}")
+        # out_file_temp.close()
+        # os.unlink(out_file)
     
     # @unittest.skipIf("GITHUB_ACTIONS" in os.environ and os.environ["GITHUB_ACTIONS"],
     #                  "These tests are known to fail due to jstor github blocks")

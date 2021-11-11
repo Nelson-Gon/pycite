@@ -2,7 +2,7 @@ import os
 import re
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen, Request
-
+import tempfile 
 import bs4
 
 from . import ncbi, pubmed, sciencedirect
@@ -76,7 +76,10 @@ class PyCite(object):
 
     def cite(self):
         final_citations = []
-        with open(self.input_file, "r") as in_file, open(self.output_file, "w") as out_file:
+        # This is useful for tests (we use tempfile) to avoid permission denied errors, on Window$
+        use_out_file = self.output_file if isinstance(self.output_file, 
+                                tempfile._TemporaryFileWrapper) else open(self.output_file, "w")
+        with open(self.input_file, "r") as in_file, use_out_file as out_file:
             for line in in_file:
                 # Assume that links are inputted as lines in the input file
 

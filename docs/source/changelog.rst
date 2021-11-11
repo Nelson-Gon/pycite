@@ -6,6 +6,9 @@ pycite's changelog
 
 
 * 
+  Tests now rely on 
+
+* 
   JSTOR citations are no longer supported. 
 
 * 
