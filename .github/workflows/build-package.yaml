@@ -40,5 +40,5 @@ jobs:
        ./codecov -t ${CODECOV_TOKEN} -R /home/runner/work/pycite -f "coverage.xml"
 
     - name: Test Script Mode
-      run: python -m pycite -i testfiles/testlinks.txt -o testfiles/citations.txt
+      run: touch testfiles/citations.txt && python -m pycite -i testfiles/testlinks.txt -o testfiles/citations.txt
 
