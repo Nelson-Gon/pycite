@@ -70,7 +70,7 @@ class TestPyCite(unittest.TestCase):
     #     test_jstor = create_test_object("testjstor.txt")
     #     self.assertTrue(isinstance(test_jstor, PyCite))
     #     self.assertEqual(len(test_jstor.cite()), 2)
-        
+    
 
 
 if __name__ == "__main__":
