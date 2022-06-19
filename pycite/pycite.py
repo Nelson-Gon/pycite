@@ -8,6 +8,30 @@ import bs4
 from . import ncbi, pubmed, sciencedirect
 import time
 
+import logging
+
+log_filename = "pycite_log.log"
+
+log_format = "%(asctime)s %(message)s"
+
+log_level = logging.DEBUG
+
+logging.basicConfig(filename = log_filename, 
+        # Only showing time and actual message, other things like func name 
+        # filename probably less useful for a user but may be useful for a 
+        # developer
+        format = log_format,
+        # using a so that we append to the same file on next run instead of 
+        # having individual log files each time. 
+        filemode = "a"
+        )
+
+logger = logging.getLogger("pycite")
+
+
+# Set logger to DEBUG so we get as much info in the log file as possible.
+logger.setLevel(log_level)
+
 # Use as access date (can be manually changed)
 date_today = time.strftime("%d/%b/%Y")
 
@@ -32,7 +56,8 @@ def switch_method(input_line, input_file, output_file, cit_list, bs4_link, **kwa
     # if not use_method:
     #  warn (f"No suitable method found for {input_line},skipping....")
     if use_method in methods.keys():
-        print(f"{input_line} in {input_file.name} is a(n) {use_method} link, using {use_method} methods")
+        # Can directly send to logger but for now do it manually 
+        logger.info(f"{input_line} in {input_file.name} is a(n) {use_method} link, using {use_method} methods")
         # output_file.write(f"{actual_method}\n") We write to the output file in the cite method now
         # The switch method now only creates a list with all the citations
         # Add date accessed
@@ -59,6 +84,7 @@ class PyCite(object):
             except AssertionError:
                 # Perhaps check for specific OS Errors eg not a file error, etc?
                 # Using an assertion error seems simple but may be less specific.
+                logger.error(f"{_file} does not exist")
                 raise FileNotFoundError(f"{_file} does not exist")
             else:
                 # Get format of file, for now only support txt files
@@ -72,6 +98,7 @@ class PyCite(object):
                     else:
                         pass
                 else:
+                    logger.error(f"No file format was detected in {_file}, exiting..")
                     raise ValueError(f"No file format was detected in {_file}, exiting...")
 
     def cite(self):
@@ -88,12 +115,13 @@ class PyCite(object):
                     # curl -I "https://www.jstor.org/stable/26469531" --user-agent "Mozilla/5.0"
                     use_agent = {'User-Agent': 'Mozilla/5.0'} if "jstor" in line else {'User-Agent': 'XYZ/3.0'}
                     paper_link = urlopen(Request(line, headers=use_agent))
-                    # print(paper_link.headers)
                     # TODO: Jstor citations work locally but not remote, temporarily disabling jstor tests.
                     # match_source(line)[0]
                 except HTTPError as err:
+                    logger.error(f"{line} not reachable, code: {str(err.code)}")
                     raise ValueError(f"{line} not reachable, code: {str(err.code)}")
                 except URLError as err:
+                    logger.error(f"{line} not reachable, reason {str(err.reason)}")
                     raise ValueError(f"{line} not reachable, reason: {str(err.reason)}")
                 else:
                     # Convert to a BS4 object

@@ -1,8 +1,12 @@
 # pycite's changelog 
 
-**pycite 0.1.3**
 
-* Tests now rely on 
+**pycite 0.1.4**
+
+* Instead of printing messages to the console, users now get information on the citations in a log file. This is named `pycite_log.log` and appends to file between script runs. The user can see which logs belong to which run via the date before the log messages.
+
+
+**pycite 0.1.3**
 
 * JSTOR citations are no longer supported. 
 
