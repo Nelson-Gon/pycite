@@ -41,4 +41,6 @@ jobs:
 
     - name: Test Script Mode
       run: touch testfiles/citations.txt && python -m pycite -i testfiles/testlinks.txt -o testfiles/citations.txt
+    - name: Check that logging works 
+      run: if [ -f pycite_log.log ]; then cat pycite_log.log && rm pycite_log.log;fi;
 

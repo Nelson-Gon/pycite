@@ -130,7 +130,7 @@ Otherwise:
    # clone the repo
    git clone git@github.com:Nelson-Gon/pycite.git
    cd pycite
-   python3 setup.py install
+   pip install .
 
 Usage
 =====

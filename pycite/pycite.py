@@ -12,7 +12,7 @@ import logging
 
 log_filename = "pycite_log.log"
 
-log_format = "%(asctime)s %(message)s"
+log_format = "%(asctime)s %(levelname)s %(message)s"
 
 log_level = logging.DEBUG
 
@@ -21,12 +21,10 @@ logging.basicConfig(filename = log_filename,
         # filename probably less useful for a user but may be useful for a 
         # developer
         format = log_format,
-        # using a so that we append to the same file on next run instead of 
-        # having individual log files each time. 
-        filemode = "a"
+        filemode = "w"
         )
 
-logger = logging.getLogger("pycite")
+logger = logging.getLogger(__name__)
 
 
 # Set logger to DEBUG so we get as much info in the log file as possible.
@@ -94,6 +92,7 @@ class PyCite(object):
                     try:
                         assert file_format == "txt", f"Only txt files supported for now, not {file_format}"
                     except AssertionError:
+                        logger.error(f"Only txt files supported for now, not {file_format}")
                         raise
                     else:
                         pass
