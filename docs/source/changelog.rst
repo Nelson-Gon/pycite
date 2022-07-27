@@ -6,7 +6,7 @@ pycite's changelog
 
 
 * 
-  We now use ``pytest`` for our tests instead of ``unittest``. This introduces one new dependency. 
+  We now use ``pytest`` for our tests instead of ``unittest``. This introduces one new dependency. We also generate coverage reports with ``pytest-cov``. 
 
 * 
   Instead of printing messages to the console, users now get information on the citations in a log file. This is named ``pycite_log.log`` and appends to file between script runs. The user can see which logs belong to which run via the date before the log messages.
