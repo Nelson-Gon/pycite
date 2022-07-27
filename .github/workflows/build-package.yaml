@@ -34,7 +34,7 @@ jobs:
       env:
         CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
       run: |
-       coverage run pytest . && coverage report -m && coverage xml 
+       coverage run test_pycite.py && coverage report -m && coverage xml 
        curl -Os https://uploader.codecov.io/latest/linux/codecov
        chmod +x codecov
        ./codecov -t ${CODECOV_TOKEN} -R /home/runner/work/pycite -f "coverage.xml"
